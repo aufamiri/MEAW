@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/meaw_txt"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:fontFamily="@font/sabo_regular"
+        android:gravity="center"
+        android:text="@string/meaw"
+        android:textColor="@color/transparentWhite"
+        android:textSize="80sp" />
+
+    <FrameLayout
+        android:id="@+id/login_frg_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/meaw_txt" />
+
+
+</RelativeLayout>

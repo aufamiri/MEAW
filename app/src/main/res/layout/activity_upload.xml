@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="60dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/insertFileButton"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Insert a File"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/UcourseName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="Name"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/UcourseCat"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="Category"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/UcourseClass"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="Class"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/UcourseUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="40dp"
+            android:text="Upload"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

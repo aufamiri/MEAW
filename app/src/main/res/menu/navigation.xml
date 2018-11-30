@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home_lec"
+        android:icon="@drawable/ic_action_home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/navigation_upload_lec"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/upload" />
+    <item
+        android:id="@+id/navigation_open_materi"
+        android:icon="@drawable/ic_action_open"
+        android:title="@string/lihat_materi" />
+    <item
+        android:id="@+id/navigation_profile_lec"
+        android:icon="@drawable/ic_action_person"
+        android:title="@string/profile" />
+
+</menu>

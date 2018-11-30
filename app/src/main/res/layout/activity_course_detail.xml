@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".CourseDetailActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/myAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkMOde"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/myCollap"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/darkMOde"
+            app:expandedTitleTextAppearance="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
+
+                <ImageView
+                    android:id="@+id/backDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:background="@drawable/logomeaw"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/namaMateri"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/backDetail"
+                    android:background="@color/transp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="3dp"
+                    android:text="Nama Courses"
+                    android:textColor="#fff"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="DESKRIPSI MATERI"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/deskripsiMateri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:text="Deskripsi singkat" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded"
+            android:text="BERHENTI"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_blue"
+            android:text="LIHAT"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

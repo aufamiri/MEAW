@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/need_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/acaslonpro_bold"
+        android:gravity="center"
+        android:text="@string/what_do_you_need"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/sh_yellow_primary"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/acaslonpro_regular"
+            android:gravity="center"
+            android:text="@string/forgot_password"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/your_email"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_white"
+                android:gravity="center"
+                android:hint="@string/your_email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/sh_yellow_dark_primary"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/sh_yellow_primary"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/acaslonpro_regular"
+            android:gravity="center"
+            android:text="@string/create_new_account"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/need_help_btn_click_me"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/sh_yellow_dark_primary"
+            android:gravity="center"
+            android:text="@string/click_me"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/sh_yellow_primary"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/acaslonpro_regular"
+            android:gravity="center"
+            android:text="@string/need_more_information_follow_us"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_white"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/instagram"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/instagram"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/facebook"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/facebook"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/twitter"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/twitter"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/flicker"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/flickr"
+                android:gravity="center" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

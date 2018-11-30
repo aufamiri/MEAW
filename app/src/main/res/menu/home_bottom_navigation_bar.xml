@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navbot_home"
+        android:icon="@drawable/ic_home_grey_800_24dp"
+        android:title="@string/home"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/navbot_exp_book"
+        android:icon="@drawable/ic_library_books_grey_800_24dp"
+        android:title="@string/books_explorer"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/navbot_up_book"
+        android:icon="@drawable/ic_cloud_upload_grey_800_24dp"
+        android:title="@string/upload_books"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/navbot_dw_book"
+        android:icon="@drawable/ic_cloud_download_grey_800_24dp"
+        android:title="@string/download_books"
+        app:showAsAction="always" />
+</menu>

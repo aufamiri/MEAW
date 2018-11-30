@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/register_txb_email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/sh_login_up"
+            android:gravity="center"
+            android:hint="@string/your_email"
+            android:textColor="@color/white"
+            android:textColorHint="@color/transparentWhite"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/register_txb_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/sh_login_mid"
+            android:gravity="center"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@color/transparentWhite"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/register_txb_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/sh_login_bottom"
+            android:gravity="center"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@color/transparentWhite"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/your_status"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/register_btn_student"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/sh_pink"
+                android:gravity="center"
+                android:text="@string/student"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/register_btn_lecture"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/sh_pink"
+                android:gravity="center"
+                android:text="@string/lecture"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/register_btn_create_account"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/sh_yellow_primary"
+            android:gravity="center"
+            android:text="@string/create_account"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/register_txv_go_to_login_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/go_to_login_page"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</FrameLayout>

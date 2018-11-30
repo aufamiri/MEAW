@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f5b904</color>
+    <color name="colorPrimaryDark">#8c6a02</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="darkBlue">#071436</color>
+    <color name="lightBlue">#36aaf2</color>
+    <color name="lightYellow">#31ffee00</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparentWhite">#64ffffff</color>
+    <color name="grey">#727171</color>
+    <color name="transparentGrey">#642b2a2a</color>
+    <color name="black">#000000</color>
+    <color name="transparentYellow">#64f2ca17</color>
+    <color name="yellow">#ffe300</color>
+    <color name="darkYellow">#9e8100</color>
+    <color name="red">#f13131</color>
+    <color name="palevioletred">#DB7093</color>
+    <color name="yellowPrimary">#f5b904</color>
+    <color name="yellowDarkPrimary">#8c6a02</color>
+
+
+    <color name="colorBg">#b3b3b3</color>
+    <color name="darkMOde">#021519</color>
+    <color name="darkModeTwo">#0e3038</color>
+    <color name="transp">#80000000</color>r>
+    <color name="bgBottomNavigation">#fe485a</color>
+    <color name="bgBottomNavigationtwo">#8e202a</color>
+    <color name="gray">#f2f2f2</color>
+</resources>

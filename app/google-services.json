@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "808429334388",
+    "firebase_url": "https://meawapp-432eb.firebaseio.com",
+    "project_id": "meawapp-432eb",
+    "storage_bucket": "meawapp-432eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808429334388:android:26a4c6b9c7bf0d14",
+        "android_client_info": {
+          "package_name": "com.tekkom.meawapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808429334388-2h8tosk0nd2lmas1sulqt13dcefn8inh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tekkom.meawapp",
+            "certificate_hash": "b08f94307cb744df5eec02c926790de77a6d8a6b"
+          }
+        },
+        {
+          "client_id": "808429334388-n3mquiio6in1imp9bj79plslr7qpr2kc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUc0I8v6bJAt5mkfCh12CTlptN7nJYW2A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808429334388-n3mquiio6in1imp9bj79plslr7qpr2kc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

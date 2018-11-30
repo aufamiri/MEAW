@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/upload"
+        android:title="@string/upload_materi"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/logout"
+        android:title="@string/log_out"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/uploadbut"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/upload" />
+
+    <item
+        android:id="@+id/search_menu"
+        android:icon="@drawable/ic_action_person"
+        android:title="@string/profile" />
+</menu>

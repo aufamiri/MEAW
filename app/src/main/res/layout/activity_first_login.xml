@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".FirstLoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/futura_bold"
+                android:gravity="center"
+                android:text="@string/complete_your_registration"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="@string/profile"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/futura_bold"
+                    android:text="@string/username"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/firstlogin_edt_username"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_white"
+                    android:fontFamily="@font/futura_bold"
+                    android:textColorHint="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="@string/basic_profile"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/futura_bold"
+                    android:text="@string/name"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/firstlogin_edt_name"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_white"
+                    android:fontFamily="@font/futura_bold"
+                    android:textColorHint="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/futura_bold"
+                    android:text="@string/id"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/firstlogin_edt_id"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_white"
+                    android:fontFamily="@font/futura_bold"
+                    android:textColorHint="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/futura_bold"
+                    android:text="@string/departement"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/firstlogin_txv_departement"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_white"
+                    android:fontFamily="@font/futura_bold"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/firstlogin_btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/sh_yellow_dark_primary"
+                android:fontFamily="@font/futura_bold"
+                android:gravity="center"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
