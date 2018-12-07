@@ -35,7 +35,19 @@
                 android:layout_marginTop="40dp"
                 android:background="@drawable/shape_white"
                 android:drawableStart="@drawable/ic_attachment_black_24dp"
-                android:text="@string/insert_a_file"
+                android:text="Insert Book"
+                android:textAllCaps="false"
+                android:textColor="@color/grey"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/upload_insert_cover"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/shape_white"
+                android:drawableStart="@drawable/ic_attachment_black_24dp"
+                android:text="Insert Cover"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
                 android:textSize="18sp" />

@@ -35,10 +35,14 @@ import static android.app.Activity.RESULT_OK;
 
 public class UploadBooksFragment extends Fragment implements View.OnClickListener {
 
-    private static final int REQUEST_PERMISION = 9;
-    private static final int OPEN_FILE = 89;
+    private static final int REQUEST_PERMISION_BOOK = 9;
+    private static final int REQUEST_PERMISION_COVER = 10;
+    private static final int OPEN_FILE_BOOK = 89;
+    private static final int OPEN_FILE_COVER = 90;
     private static final int BUTTON_NO = 0;
+    private static final int BOOK = 0;
     private static final int BUTTON_YES = 1;
+    private static final int COVER = 1;
     private static final String TAG = "UploadBooksFragment";
 
 
@@ -46,10 +50,10 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
     public FirebaseFirestore firebaseFirestore;
     public View view;
     public EditText inputTitle, inputDescription, inputDate;
-    public Button inputInsertFile, inputExpirationNo, inputExpirationYes, inputUpload;
+    public Button inputInsertFile, inputInsertCover, inputExpirationNo, inputExpirationYes, inputUpload;
     private FirebaseDatabase firebaseDatabase;
     private int expiration;
-    private Uri filePath;
+    private Uri bookPath, coverPath;
 
     @Override
     public void onClick(View v) {
@@ -57,14 +61,21 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
             case R.id.upload_insert_file:
 
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    selectFile();
+                    selectFile(REQUEST_PERMISION_BOOK);
                 } else {
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISION);
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISION_BOOK);
+                }
+                break;
+            case R.id.upload_insert_cover:
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    selectFile(REQUEST_PERMISION_COVER);
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISION_COVER);
                 }
                 break;
             case R.id.upload_upload:
-                if (filePath != null) {
-                    uploadFile(filePath);
+                if (bookPath != null) {
+                    uploadFile(bookPath);
                 } else {
                     Toast.makeText(getActivity(), "Please select a file", Toast.LENGTH_SHORT)
                             .show();
@@ -111,10 +122,11 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
     private void uploadFile(Uri filePath) {
         if (inputTitle.getText().toString().trim() != "" && inputDescription.getText().toString().trim() != "") {
             StorageReference storageReference = firebaseStorage.getReference();
+
             storageReference
                     .child("Materi")
                     .child(inputTitle.getText().toString().trim())
-                    .child("file.pdf")
+                    .child("fileURL.pdf")
                     .putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -129,7 +141,7 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                                             HashMap<String, Object> toDatabase = new HashMap<>();
                                             toDatabase.put("namaMateri", inputTitle.getText().toString().trim());
                                             toDatabase.put("deskripsi", inputDescription.getText().toString().trim());
-                                            toDatabase.put("file", url);
+                                            toDatabase.put("fileURL", url);
 
                                             DatabaseReference databaseReference = firebaseDatabase.getReference();
                                             databaseReference
@@ -140,6 +152,7 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
                                                             if (task.isSuccessful()) {
+                                                                uploadCover();
                                                                 Toast.makeText(getActivity(), "Upload complete", Toast.LENGTH_SHORT)
                                                                         .show();
                                                             } else {
@@ -170,8 +183,6 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
 
                         }
                     });
-
-
         } else {
             if (inputTitle.getText().toString().trim() == "") {
                 inputTitle.setError("Title cannot blank");
@@ -183,34 +194,100 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void selectFile() {
-        Intent intent = new Intent();
-        intent.setType("application/pdf");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(new Intent().setType("application/pdf").setAction(Intent.ACTION_GET_CONTENT),
-                OPEN_FILE);
+    private void uploadCover() {
+        firebaseStorage
+                .getReference()
+                .child("Materi")
+                .child(inputTitle.getText().toString().trim())
+                .child("image")
+                .putFile(coverPath)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        taskSnapshot
+                                .getStorage()
+                                .getDownloadUrl()
+                                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Toast.makeText(getActivity(), inputTitle.getText().toString().trim(), Toast.LENGTH_SHORT)
+                                                .show();
+                                        final String image = uri.toString();
+                                        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Materi")
+                                                .child(inputTitle.getText().toString().trim())
+                                                .child("image");
+                                        databaseReference
+                                                .setValue(image)
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(getActivity(), "FATAL ERROR: " + e, Toast.LENGTH_SHORT)
+                                                                .show();
+                                                    }
+                                                });
+                                    }
+                                });
+
+                    }
+                });
+    }
+
+    private void selectFile(int type) {
+        switch (type) {
+            case REQUEST_PERMISION_BOOK:
+                startActivityForResult(new Intent().setType("application/pdf").setAction(Intent.ACTION_GET_CONTENT),
+                        OPEN_FILE_BOOK);
+                break;
+            case REQUEST_PERMISION_COVER:
+                startActivityForResult(new Intent().setType("image/*").setAction(Intent.ACTION_GET_CONTENT),
+                        OPEN_FILE_COVER);
+                break;
+        }
+
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == OPEN_FILE && resultCode == RESULT_OK && data != null) {
-            filePath = data.getData();
-        } else {
-            Toast.makeText(getActivity(), "Please select a file", Toast.LENGTH_SHORT)
-                    .show();
+        switch (requestCode) {
+            case OPEN_FILE_BOOK:
+                if (resultCode == RESULT_OK && data != null) {
+                    bookPath = data.getData();
+                } else {
+                    Toast.makeText(getActivity(), "Please select the book", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            case OPEN_FILE_COVER:
+                if (resultCode == RESULT_OK && data != null) {
+                    coverPath = data.getData();
+                } else {
+                    Toast.makeText(getActivity(), "Please select the cover", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            selectFile();
-        } else {
-            Toast.makeText(getActivity(), "Need provide permisiion", Toast.LENGTH_SHORT)
-                    .show();
+        switch (requestCode) {
+            case REQUEST_PERMISION_BOOK:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    selectFile(REQUEST_PERMISION_BOOK);
+                } else {
+                    Toast.makeText(getActivity(), "Need provide permisiion", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            case REQUEST_PERMISION_COVER:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    selectFile(REQUEST_PERMISION_COVER);
+                } else {
+                    Toast.makeText(getActivity(), "Need provide permisiion", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
         }
     }
 
@@ -227,7 +304,7 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
         inputExpirationNo = view.findViewById(R.id.upload_no_expiration);
         inputExpirationYes = view.findViewById(R.id.upload_yes_expiration);
         inputUpload = view.findViewById(R.id.upload_upload);
-
+        inputInsertCover = view.findViewById(R.id.upload_insert_cover);
 
         inputExpirationNo.setTag(R.drawable.sh_pink);
         inputExpirationYes.setTag(R.drawable.sh_pink);
@@ -236,6 +313,7 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
         inputExpirationYes.setOnClickListener(this);
         inputInsertFile.setOnClickListener(this);
         inputUpload.setOnClickListener(this);
+        inputInsertCover.setOnClickListener(this);
 
 
         firebaseDatabase = FirebaseDatabase.getInstance();
