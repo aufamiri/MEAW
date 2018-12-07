@@ -1,7 +1,9 @@
 package com.tekkom.meawapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,14 +25,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 public class LectureProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    /* TODO:merapihkan fungsi (getDatabase()) untuk NavigationView kedalam fragment tersendiri */
 
     private static final String TAG = "LectureProfileActivity";
     private TextView profileName, profileID;
     private View navView;
     private NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +50,6 @@ public class LectureProfileActivity extends AppCompatActivity
         navView = navigationView.getHeaderView(0);
         profileName = navView.findViewById(R.id.navheaderlectureprofile_name);
         profileID = navView.findViewById(R.id.navheaderlectureprofile_id);
-
         getDatabase();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -55,9 +60,6 @@ public class LectureProfileActivity extends AppCompatActivity
 
 
         navigationView.setNavigationItemSelectedListener(this);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.profile_activity_fragment_area, new HomeFragment()).commit();
-
     }
 
     @Override
@@ -66,7 +68,17 @@ public class LectureProfileActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (getSupportFragmentManager().findFragmentById(R.id.profile_activity_fragment_area) instanceof HomeFragment) {
+                startActivity(new Intent(Intent.ACTION_MAIN)
+                        .addCategory(Intent.CATEGORY_HOME)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            } else {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.profile_activity_fragment_area, new HomeFragment())
+                        .commit();
+            }
+
         }
     }
 
@@ -82,39 +94,30 @@ public class LectureProfileActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        Fragment fragment;
-        FragmentManager fragmentManager;
-        FragmentTransaction fragmentTransaction;
-
-        switch (id) {
+        switch (item.getItemId()) {
             case R.id.navbot_up_book:
-                fragment = new UploadBooksFragment();
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.profile_activity_fragment_area, fragment);
-                fragmentTransaction.commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.profile_activity_fragment_area, new UploadBooksFragment())
+                        .commit();
                 return true;
             case R.id.navbot_dw_book:
-                fragment = new DownloadBooksFragment();
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.profile_activity_fragment_area, fragment);
-                fragmentTransaction.commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.profile_activity_fragment_area, new DownloadBooksFragment())
+                        .commit();
                 return true;
             case R.id.navbot_exp_book:
-                fragment = new ExploreBooksFragment();
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.profile_activity_fragment_area, fragment);
-                fragmentTransaction.commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.profile_activity_fragment_area, new ExploreBooksFragment())
+                        .commit();
                 return true;
             case R.id.navbot_home:
-                fragment = new HomeFragment();
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.profile_activity_fragment_area, fragment);
-                fragmentTransaction.commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.profile_activity_fragment_area, new HomeFragment())
+                        .commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -171,7 +174,7 @@ public class LectureProfileActivity extends AppCompatActivity
     }
 
     private void getDatabase() {
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         FirebaseFirestore.getInstance()
                 .collection("users")
                 .document(uid)
@@ -181,6 +184,7 @@ public class LectureProfileActivity extends AppCompatActivity
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
+                            assert documentSnapshot != null;
                             if (documentSnapshot.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
                                 profileName.setText(documentSnapshot.getString("name"));
@@ -193,5 +197,10 @@ public class LectureProfileActivity extends AppCompatActivity
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
