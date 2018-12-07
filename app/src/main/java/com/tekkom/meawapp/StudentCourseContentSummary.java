@@ -1,15 +1,24 @@
 package com.tekkom.meawapp;
 
 public class StudentCourseContentSummary {
-    private String namaMateri, deskripsi, image;
+    private String namaMateri, deskripsi, image, fileURL;
 
     public StudentCourseContentSummary() {
     }
 
-    public StudentCourseContentSummary(String namaMateri, String image, String deskripsi) {
+    public StudentCourseContentSummary(String namaMateri, String image, String deskripsi, String fileURL) {
         this.namaMateri = namaMateri;
         this.deskripsi = deskripsi;
         this.image = image;
+        this.fileURL = fileURL;
+    }
+
+    public String getFileURL() {
+        return fileURL;
+    }
+
+    public void setFileURL(String fileURL) {
+        this.fileURL = fileURL;
     }
 
     public String getDeskripsi() {

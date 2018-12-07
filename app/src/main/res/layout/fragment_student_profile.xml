@@ -1,14 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context=".StudentProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/StudentProf" />
+        android:clipToPadding="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="#e2d68e" />
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profilePic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/profilepic"
+                    app:civ_border_width="0dp" />
+                <TextView
+                    android:id="@+id/namaPengguna"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profilePic"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="55dp"
+                    android:text="nama"
+                    android:textColor="@color/darkMOde"
+                    android:textSize="15dp"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray"
+                    android:text="PROFILE SAYA"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="15dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="    Username"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/userName"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@drawable/ic_action_profilepic"
+                    android:layout_marginBottom="10dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userDepartment"
+                    android:text="    Department"
+                    android:textSize="13dp"
+                    android:layout_marginLeft="5dp"
+                    android:drawableLeft="@drawable/ic_action_department_black"
+                    android:drawablePadding="10dp"
+                    android:layout_marginBottom="10dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userEmail"
+                    android:text="    Email"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13dp"
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@drawable/ic_action_email_black"
+                    android:layout_marginBottom="10dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userNrp"
+                    android:text="    NRP"
+                    android:layout_marginLeft="5dp"
+                    android:drawablePadding="10dp"
+                    android:textSize="13dp"
+                    android:drawableLeft="@drawable/ic_action_nrp_black"
+                    android:layout_marginBottom="10dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userContact"
+                    android:drawablePadding="10dp"
+                    android:text="No. HP"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="13dp"
+                    android:drawableLeft="@drawable/ic_action_contactnumb_black"
+                    android:layout_marginBottom="10dp"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editButton"
+                android:text="E D I T"
+                android:textStyle="bold"
+                android:layout_gravity="bottom"
+                />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

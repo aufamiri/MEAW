@@ -91,9 +91,4 @@
     <string name="save">Save</string>
     <string name="status">Status</string>
     <string name="change">Change</string>
-    <string name="title">Title</string>
-    <string name="include_expiration_date">Include expiration date?</string>
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
-    <string name="date">Date</string>
 </resources>
