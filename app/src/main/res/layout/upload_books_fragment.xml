@@ -73,6 +73,7 @@
                 android:drawableStart="@drawable/ic_format_color_text_black_24dp"
                 android:hint="@string/title"
                 android:inputType="text"
+                android:textAlignment="center"
                 android:textColor="@color/grey"
                 android:textSize="18sp" />
 
@@ -84,6 +85,7 @@
                 android:background="@drawable/shape_white"
                 android:drawableStart="@drawable/ic_filter_list_black_24dp"
                 android:hint="Description"
+                android:textAlignment="center"
                 android:inputType="text"
                 android:textColor="@color/grey"
                 android:textSize="18sp" />
@@ -169,6 +171,7 @@
                 android:id="@+id/upload_layout_end_date"
                 android:visibility="invisible"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
