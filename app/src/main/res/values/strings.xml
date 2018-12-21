@@ -96,4 +96,6 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="date">Date</string>
+    <string name="set_expiration_date">Set Expiration Date</string>
+    <string name="set_date">Set Date</string>
 </resources>

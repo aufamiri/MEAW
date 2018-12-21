@@ -1,6 +1,7 @@
 package com.tekkom.meawapp;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -14,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +32,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
@@ -46,13 +50,17 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
     private static final String TAG = "UploadBooksFragment";
 
 
+    protected String startDay, startMonth, startYear, endDay, endMonth, endYear;
+    protected String imageURL, coverURL;
+
     public FirebaseStorage firebaseStorage;
     public FirebaseFirestore firebaseFirestore;
     public View view;
-    public EditText inputTitle, inputDescription, inputDate;
-    public Button inputInsertFile, inputInsertCover, inputExpirationNo, inputExpirationYes, inputUpload;
+    public EditText inputTitle, inputDescription;
+    public Button inputInsertFile, inputInsertCover, inputExpirationNo, inputExpirationYes, inputUpload, inputDateStart, inputDateEnd;
+    public LinearLayout startDate, endDate;
     private FirebaseDatabase firebaseDatabase;
-    private int expiration;
+    protected int expiration;
     private Uri bookPath, coverPath;
 
     @Override
@@ -87,6 +95,91 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
             case R.id.upload_yes_expiration:
                 setExpiration(BUTTON_YES);
                 break;
+            case R.id.upload_set_expiration_date_start:
+                if (expiration == BUTTON_YES) {
+                    Calendar calendar = Calendar.getInstance();
+                    final Integer inputYear = Integer.valueOf(calendar.get(Calendar.YEAR));
+                    final Integer inputMonth = Integer.valueOf(calendar.get(Calendar.MONTH));
+                    final Integer inputDay = Integer.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            setDate(inputYear.intValue(), inputMonth.intValue(), inputDay.intValue(), year, month, dayOfMonth);
+
+                        }
+                    }, inputYear, inputMonth, inputDay);
+                    datePickerDialog.show();
+                }
+                break;
+            case R.id.upload_set_expiration_date_end:
+                if (expiration == BUTTON_YES) {
+                    Integer inputYear = Integer.parseInt(startYear);
+                    Integer inputMonth = Integer.parseInt(startMonth);
+                    Integer inputDay = Integer.parseInt(startDay);
+
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            setDate(year, month, dayOfMonth);
+
+                        }
+                    }, inputYear, inputMonth, inputDay);
+                    datePickerDialog.show();
+                }
+                break;
+        }
+
+    }
+
+    private void setDate(int currentYear, int currentMonth, int currentDayOfMonth, int year, int month, int dayOfMonth) {
+        if (year < currentYear) {
+            Toast.makeText(getActivity(), "Your start year less than current year!" +, Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+            if (month < currentMonth) {
+                Toast.makeText(getActivity(), "Your start month less than current month!" +, Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                if (dayOfMonth < currentDayOfMonth) {
+                    Toast.makeText(getActivity(), "Your start day less than current day!" +, Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    startDay = Integer.toString(dayOfMonth);
+                    startMonth = Integer.toString(month);
+                    startYear = Integer.toString(year);
+                }
+            }
+        }
+
+    }
+    private void setDate(int year, int month, int dayOfMonth) {
+        int currentDayOfMonth = Integer.parseInt(startDay);
+        int currentMonth = Integer.parseInt(startMonth);
+        int currentYear = Integer.parseInt(startYear);
+
+        if (currentDayOfMonth == null || currentMonth == null || currentYear == null) {
+            Toast.makeText(getActivity(), "Please input start date first!" +, Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+            if (year < currentYear) {
+                Toast.makeText(getActivity(), "Your end year less than start year!" +, Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                if (month < currentMonth) {
+                    Toast.makeText(getActivity(), "Your end month less than start month!" +, Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    if (dayOfMonth < currentDayOfMonth) {
+                        Toast.makeText(getActivity(), "Your end day less than start day!" +, Toast.LENGTH_SHORT)
+                                .show();
+                    } else {
+                        endDay = Integer.toString(dayOfMonth);
+                        endMonth = Integer.toString(month);
+                        endYear = Integer.toString(year);
+                    }
+                }
+            }
         }
 
     }
@@ -102,6 +195,8 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                     inputExpirationYes.setTag(R.drawable.sh_pink);
 
                     expiration = BUTTON_NO;
+                    startDate.setVisibility(View.GONE);
+                    endDate.setVisibility(View.GONE);
                 }
                 break;
             case BUTTON_YES:
@@ -113,14 +208,37 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                     inputExpirationNo.setTag(R.drawable.sh_pink);
 
                     expiration = BUTTON_YES;
+                    startDate.setVisibility(View.VISIBLE);
+                    endDate.setVisibility(View.VISIBLE);
                 }
                 break;
         }
     }
 
-
     private void uploadFile(Uri filePath) {
-        if (inputTitle.getText().toString().trim() != "" && inputDescription.getText().toString().trim() != "") {
+        if (inputTitle.getText().toString().trim() != "" && inputDescription.getText().toString().trim() != "" && bookPath != null && coverPath != null) {
+            String key = firebaseDatabase.getReference("Materi").push().getKey();
+            HashMap<String, Object> toDatabase = new HashMap<>();
+            toDatabase.put("IDMateri", key);
+
+            if (expiration == BUTTON_YES) {
+                toDatabase.put("expiration", "1")
+                toDatabase.put("startDay", startDay);
+                toDatabase.put("startMonth", startMonth);
+                toDatabase.put("startYear", startYear);
+                toDatabase.put("endDay", endDay);
+                toDatabase.put("endMonth", endMonth);
+                toDatabase.put("endYear", endYear);
+
+            } else {
+                toDatabase.put("expiration", "0")
+            }
+
+            
+
+
+
+
             StorageReference storageReference = firebaseStorage.getReference();
 
             storageReference
@@ -137,6 +255,7 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
+                                            imageURL = uri.toString();
                                             String url = uri.toString();
                                             HashMap<String, Object> toDatabase = new HashMap<>();
                                             toDatabase.put("namaMateri", inputTitle.getText().toString().trim());
@@ -232,6 +351,10 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                 });
     }
 
+    private void uploadExpiration() {
+
+    }
+
     private void selectFile(int type) {
         switch (type) {
             case REQUEST_PERMISION_BOOK:
@@ -298,7 +421,6 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
 
         inputTitle = view.findViewById(R.id.upload_title);
         inputDescription = view.findViewById(R.id.upload_description);
-        inputDate = view.findViewById(R.id.upload_date);
 
         inputInsertFile = view.findViewById(R.id.upload_insert_file);
         inputExpirationNo = view.findViewById(R.id.upload_no_expiration);
@@ -306,8 +428,15 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
         inputUpload = view.findViewById(R.id.upload_upload);
         inputInsertCover = view.findViewById(R.id.upload_insert_cover);
 
+        inputDateStart = view.findViewById(R.id.upload_set_expiration_date_start);
+        inputDateEnd = view.findViewById(R.id.upload_set_expiration_date_end);
+
+        startDate = view.findViewById(R.id.upload_layout_start_date);
+        endDate = view.findViewById(R.id.upload_layout_end_date);
+
         inputExpirationNo.setTag(R.drawable.sh_pink);
         inputExpirationYes.setTag(R.drawable.sh_pink);
+
 
         inputExpirationNo.setOnClickListener(this);
         inputExpirationYes.setOnClickListener(this);
@@ -315,6 +444,8 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
         inputUpload.setOnClickListener(this);
         inputInsertCover.setOnClickListener(this);
 
+        inputDateStart.setOnClickListener(this);
+        inputDateEnd.setOnClickListener(this);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
