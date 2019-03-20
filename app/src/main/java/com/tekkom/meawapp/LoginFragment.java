@@ -2,8 +2,8 @@ package com.tekkom.meawapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,7 +106,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                                             startActivity(new Intent(getActivity(), FirstLoginActivity.class));
                                                         } else {
                                                             if (documentSnapshot.getString("status").equals("Lecture")) {
-                                                                startActivity(new Intent(getActivity(), LectureProfileActivity.class));
+                                                                startActivity(new Intent(getActivity(), LectureMainActivity.class));
                                                             }
                                                             if (documentSnapshot.getString("status").equals("Student")) {
                                                                 startActivity(new Intent(getActivity(), StudentActivity.class));

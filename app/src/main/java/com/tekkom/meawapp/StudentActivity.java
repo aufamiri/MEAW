@@ -2,12 +2,11 @@ package com.tekkom.meawapp;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -21,12 +20,10 @@ public class StudentActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_home_stud:
-                    toolbar.setTitle("Halaman Utama");
                     fragment = new StudentHomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_classopt_stud:
-                    toolbar.setTitle("Pilih kelas kamu");
                     fragment = new StudentClassOptionsFragment();
                     loadFragment(fragment);
                     Context contextsq = getApplicationContext();
@@ -37,7 +34,6 @@ public class StudentActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_quizz_stud:
-                    toolbar.setTitle("Ayo Quizz");
                     fragment = new StudentQuizzFragment();
                     loadFragment(fragment);
                     Context contextsa = getApplicationContext();
@@ -48,7 +44,6 @@ public class StudentActivity extends AppCompatActivity {
                     toastsa.show();
                     return true;
                 case R.id.navigation_profile_stud:
-                    toolbar.setTitle("Halaman Profile");
                     fragment = new StudentProfileFragment();
                     loadFragment(fragment);
                     Context contexts = getApplicationContext();
@@ -63,14 +58,11 @@ public class StudentActivity extends AppCompatActivity {
             return false;
         }
     };
-    private ActionBar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-
-        toolbar = getSupportActionBar();
-        toolbar.setTitle("Halaman Utama");
 
         BottomNavigationView navigation = findViewById(R.id.navigationStudent);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

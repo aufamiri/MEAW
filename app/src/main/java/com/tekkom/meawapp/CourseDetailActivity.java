@@ -3,11 +3,9 @@ package com.tekkom.meawapp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,15 +19,12 @@ public class CourseDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course_detail);
 
         Intent intent = getIntent();
-        final String namaMateri = intent.getStringExtra("namaMateri");
+        String namaMateri = intent.getStringExtra("namaMateri");
         String deskripsi = intent.getStringExtra("deskripsi");
         String image = intent.getStringExtra("image");
-        final String fileURL = intent.getStringExtra("fileURL");
-
         TextView tnamaMateri = findViewById(R.id.namaMateri);
         TextView tdeskripsi = findViewById(R.id.deskripsiMateri);
         ImageView timage = findViewById(R.id.backDetail);
-        Button buttonLearn = (Button)findViewById(R.id.lihatMateri);
 
         tnamaMateri.setText(namaMateri);
         tdeskripsi.setText(deskripsi);
@@ -56,15 +51,7 @@ public class CourseDetailActivity extends AppCompatActivity {
                 }
             }
         });
-        buttonLearn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), LearnActivity.class);
-                i.putExtra("fileURL", fileURL);
-                i.putExtra("namaMateri", namaMateri);
-                startActivity(i);
-            }
-        });
+
 
     }
 }
