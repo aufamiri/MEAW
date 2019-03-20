@@ -78,8 +78,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 if (student.getTag().equals(R.drawable.sh_pink)) {
                     student.setBackgroundResource(R.drawable.sh_red);
                     lecture.setBackgroundResource(R.drawable.sh_pink);
-                    student.setTag(R.drawable.sh_red);
-                    lecture.setTag(R.drawable.sh_pink);
+                    student.setTag(R.drawable.sh_pink);
                     status = "Student";
                 }
                 break;
@@ -87,8 +86,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 if (lecture.getTag().equals(R.drawable.sh_pink)) {
                     lecture.setBackgroundResource(R.drawable.sh_red);
                     student.setBackgroundResource(R.drawable.sh_pink);
-                    lecture.setTag(R.drawable.sh_red);
-                    student.setTag(R.drawable.sh_pink);
+                    lecture.setTag(R.drawable.sh_pink);
                     status = "Lecture";
                 }
                 break;

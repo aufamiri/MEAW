@@ -37,6 +37,7 @@ public class StudentCourseContentAdapter extends RecyclerView.Adapter<StudentCou
         final String fnamaMateri = studentCourseContentSummaries.get(position).getNamaMateri();
         final String fdeskripsi = studentCourseContentSummaries.get(position).getDeskripsi();
         final String fimage = studentCourseContentSummaries.get(position).getImage();
+        final String ffileURL = studentCourseContentSummaries.get(position).getFileURL();
         holder.namaMateri.setText(fnamaMateri);
         Picasso.get().load(studentCourseContentSummaries.get(position).getImage()).into(holder.imageMateri);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +48,7 @@ public class StudentCourseContentAdapter extends RecyclerView.Adapter<StudentCou
                 intent.putExtra("namaMateri", fnamaMateri);
                 intent.putExtra("deskripsi", fdeskripsi);
                 intent.putExtra("image", fimage);
+                intent.putExtra("fileURL", ffileURL);
                 context1.startActivity(intent);
                 Snackbar.make(v, "Clicked element " + fnamaMateri, Snackbar.LENGTH_LONG).show();
 
