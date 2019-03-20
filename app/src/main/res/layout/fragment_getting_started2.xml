@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GettingStarted2Fragment"
+    android:background="@drawable/getstart_2">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".15"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:id="@+id/getting_started2_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".55"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:fontFamily="@font/caslonpro_bold"
+                android:gravity="center"
+                android:id="@+id/getting_started2_description"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".6"
+                android:textSize="25sp"
+                android:textColor="@color/white"
+                android:text="We need some permission"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".2"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center">
+            <Button
+                android:textColor="@color/white"
+                android:text="CLICK HERE"
+                android:id="@+id/getting_started2_btn"
+                android:layout_marginBottom="40dp"
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:background="@drawable/sh_red"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".1"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"></LinearLayout>
+
+
+
+    </LinearLayout>
+</FrameLayout>
