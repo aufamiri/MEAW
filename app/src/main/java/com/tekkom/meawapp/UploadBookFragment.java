@@ -2,14 +2,19 @@ package com.tekkom.meawapp;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,21 +27,29 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
-public class UploadBooksFragment extends Fragment implements View.OnClickListener {
+public class UploadBookFragment extends Fragment implements View.OnClickListener {
 
+    private static final int REQUEST_WRITE_STORAGE = 10;
+    private static final int REQUEST_READ_STORAGE = 11;
     private static final int REQUEST_PERMISION_BOOK = 9;
     private static final int REQUEST_PERMISION_COVER = 10;
     private static final int OPEN_FILE_BOOK = 89;
@@ -45,7 +58,7 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
     private static final int BOOK = 0;
     private static final int BUTTON_YES = 1;
     private static final int COVER = 1;
-    private static final String TAG = "UploadBooksFragment";
+    private static final String TAG = "UploadBookFragment";
 
 
     protected String startDay, startMonth, startYear, endDay, endMonth, endYear;
@@ -61,6 +74,66 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
     protected int expiration;
     private Uri bookUri, coverUri;
 
+    private FloatingActionButton fab;
+
+    public static UploadBookFragment newInstance() {
+        return new UploadBookFragment();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_upload_book, container, false);
+
+        inputTitle = view.findViewById(R.id.upload_title);
+        inputDescription = view.findViewById(R.id.upload_description);
+
+        inputInsertFile = view.findViewById(R.id.upload_insert_file);
+        inputExpirationNo = view.findViewById(R.id.upload_no_expiration);
+        inputExpirationYes = view.findViewById(R.id.upload_yes_expiration);
+        //inputUpload = view.findViewById(R.id.upload_upload);
+        inputInsertCover = view.findViewById(R.id.upload_insert_cover);
+
+        inputDateStart = view.findViewById(R.id.upload_set_expiration_date_start);
+        inputDateEnd = view.findViewById(R.id.upload_set_expiration_date_end);
+
+        startDate = view.findViewById(R.id.upload_layout_start_date);
+        endDate = view.findViewById(R.id.upload_layout_end_date);
+
+        inputExpirationNo.setTag(R.drawable.sh_pink);
+        inputExpirationYes.setTag(R.drawable.sh_pink);
+
+
+        inputExpirationNo.setOnClickListener(this);
+        inputExpirationYes.setOnClickListener(this);
+        inputInsertFile.setOnClickListener(this);
+        //inputUpload.setOnClickListener(this);
+        inputInsertCover.setOnClickListener(this);
+
+        inputDateStart.setOnClickListener(this);
+        inputDateEnd.setOnClickListener(this);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+
+        startDay = Integer.toString(-9);
+        startMonth = Integer.toString(-9);
+        startYear = Integer.toString(-9);
+
+        fab = (FloatingActionButton) view.findViewById(R.id.upload_upload);
+        fab.setOnClickListener(this);
+
+        return view;
+    }
+
+    private void pickImage() {
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(3, 4)
+                .start(getContext(), this);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -73,14 +146,19 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                 }
                 break;
             case R.id.upload_insert_cover:
+                checkPermission();
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    selectFile(REQUEST_PERMISION_COVER);
-                } else {
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISION_COVER);
+                    pickImage();
+                    //selectFile(REQUEST_PERMISION_COVER);
                 }
+//                 else {
+//                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISION_COVER);
+//                }
                 break;
             case R.id.upload_upload:
                 if (bookUri != null && coverUri != null) {
+                    Snackbar.make(v, "Please wait...", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                     uploadFile();
                 } else {
                     Toast.makeText(getActivity(), "Please select a file", Toast.LENGTH_SHORT)
@@ -263,7 +341,10 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
 
     private void uploadFile() {
         if (inputTitle.getText().toString().trim() != "" && inputDescription.getText().toString().trim() != "" && bookUri != null && coverUri != null) {
-            final String key = firebaseDatabase.getReference("Materi").push().getKey();
+            final String key = firebaseDatabase.getReference("Book").push().getKey();
+
+            final String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
             HashMap<String, Object> toDatabase = new HashMap<>();
             toDatabase.put("IDMateri", key);
 
@@ -282,13 +363,29 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
 
             toDatabase.put("namaMateri", inputTitle.getText().toString().trim());
             toDatabase.put("deskripsi", inputDescription.getText().toString().trim());
-            toDatabase.put("bookURL","");
-            toDatabase.put("coverURL","");
+            toDatabase.put("bookURL", "");
+            toDatabase.put("coverURL", "");
+            toDatabase.put("uploader", uid);
 
 
             firebaseDatabase
                     .getReference()
-                    .child("Materi")
+                    .child("LectureData")
+                    .child(uid)
+                    .child("upload")
+                    .push()
+                    .setValue(key)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "FATAL ERROR: " + e, Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    });
+
+            firebaseDatabase
+                    .getReference()
+                    .child("Book")
                     .child(key != null ? key : "ERROR")
                     .setValue(toDatabase)
                     .addOnFailureListener(new OnFailureListener() {
@@ -303,9 +400,9 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
             StorageReference storageReference = firebaseStorage.getReference();
 
             storageReference
-                    .child("Materi")
+                    .child("Book")
                     .child(key != null ? key : "ERROR")
-                    .child("book")
+                    .child("bookURL")
                     .putFile(bookUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -322,7 +419,7 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
 
                                             firebaseDatabase
                                                     .getReference()
-                                                    .child("Materi")
+                                                    .child("Book")
                                                     .child(key != null ? key : "ERROR")
                                                     .updateChildren(book)
                                                     .addOnFailureListener(new OnFailureListener() {
@@ -357,9 +454,9 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                     });
 
             storageReference
-                    .child("Materi")
+                    .child("Book")
                     .child(key != null ? key : "ERROR")
-                    .child("cover")
+                    .child("coverURL")
                     .putFile(coverUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -377,7 +474,7 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
 
                                             firebaseDatabase
                                                     .getReference()
-                                                    .child("Materi")
+                                                    .child("Book")
                                                     .child(key != null ? key : "ERROR")
                                                     .updateChildren(cover)
                                                     .addOnFailureListener(new OnFailureListener() {
@@ -414,8 +511,6 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                         OPEN_FILE_COVER);
                 break;
         }
-
-
     }
 
     @Override
@@ -437,6 +532,14 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                             .show();
                 }
                 break;
+            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                if (resultCode == RESULT_OK) {
+                    coverUri = result.getUri();
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Exception error = result.getError();
+                }
+                break;
         }
     }
 
@@ -453,56 +556,55 @@ public class UploadBooksFragment extends Fragment implements View.OnClickListene
                 break;
             case REQUEST_PERMISION_COVER:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    selectFile(REQUEST_PERMISION_COVER);
+                    pickImage();
                 } else {
                     Toast.makeText(getActivity(), "Need provide permisiion", Toast.LENGTH_SHORT)
                             .show();
                 }
                 break;
+            case 112:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickImage();
+                } else {
+                    Toast.makeText(getActivity(), "Need provide permisiion", Toast.LENGTH_SHORT)
+                            .show();
+                }
         }
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.upload_books_fragment, container, false);
+    //
+    private void checkPermission() {
+        String[] Permissions = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-        inputTitle = view.findViewById(R.id.upload_title);
-        inputDescription = view.findViewById(R.id.upload_description);
+        if (!hasPermissions(getContext(), Permissions)) {
 
-        inputInsertFile = view.findViewById(R.id.upload_insert_file);
-        inputExpirationNo = view.findViewById(R.id.upload_no_expiration);
-        inputExpirationYes = view.findViewById(R.id.upload_yes_expiration);
-        inputUpload = view.findViewById(R.id.upload_upload);
-        inputInsertCover = view.findViewById(R.id.upload_insert_cover);
+            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), Permissions, 112);
 
-        inputDateStart = view.findViewById(R.id.upload_set_expiration_date_start);
-        inputDateEnd = view.findViewById(R.id.upload_set_expiration_date_end);
-
-        startDate = view.findViewById(R.id.upload_layout_start_date);
-        endDate = view.findViewById(R.id.upload_layout_end_date);
-
-        inputExpirationNo.setTag(R.drawable.sh_pink);
-        inputExpirationYes.setTag(R.drawable.sh_pink);
+        }
 
 
-        inputExpirationNo.setOnClickListener(this);
-        inputExpirationYes.setOnClickListener(this);
-        inputInsertFile.setOnClickListener(this);
-        inputUpload.setOnClickListener(this);
-        inputInsertCover.setOnClickListener(this);
-
-        inputDateStart.setOnClickListener(this);
-        inputDateEnd.setOnClickListener(this);
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
-
-        startDay = Integer.toString(-9);
-        startMonth = Integer.toString(-9);
-        startYear = Integer.toString(-9);
-
-        return view;
     }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+
+            for (String permission : permissions) {
+
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+
+                    return false;
+
+                }
+
+            }
+
+        }
+
+        return true;
+
+    }
+
 }
