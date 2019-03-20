@@ -21,7 +21,10 @@
         android:id="@+id/login_frg_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/meaw_txt" />
+        android:layout_below="@+id/meaw_txt" >
+
+    </FrameLayout>
+
 
 
 </RelativeLayout>

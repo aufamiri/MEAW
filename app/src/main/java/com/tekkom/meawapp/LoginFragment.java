@@ -1,5 +1,6 @@
 package com.tekkom.meawapp;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -8,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public EditText loginEmail, loginPassword;
     public TextView loginForgetPassword, loginCreateAccount;
     public Button loginButton;
+    public Dialog loadingDialog;
 
     @Override
     public void onClick(View v) {
@@ -61,6 +65,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         loginButton = view.findViewById(R.id.login_btn_log_in);
 
+        loadingDialog = new Dialog(getActivity());
+        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loadingDialog.setContentView(R.layout.progress_bar_dialog);
+        loadingDialog.setCancelable(false);
+
         loginForgetPassword.setOnClickListener(this);
         loginCreateAccount.setOnClickListener(this);
         loginButton.setOnClickListener(this);
@@ -68,7 +77,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void userLogin() {
-
+        loadingDialog.show();
         final String inputEmail = loginEmail.getText().toString().trim();
         String inputPassword = loginPassword.getText().toString().trim();
 
@@ -101,7 +110,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                                         Log.d(TAG, "signInWithEmail:success");
                                                         Toast.makeText(getActivity(), "Authentication success", Toast.LENGTH_SHORT).show();
                                                         Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
-
+                                                        loadingDialog.dismiss();
                                                         if (documentSnapshot.getString("firsttime").equals("1")) {
                                                             startActivity(new Intent(getActivity(), FirstLoginActivity.class));
                                                         } else {
@@ -121,16 +130,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                             public void onFailure(@NonNull Exception e) {
                                                 Log.d(TAG, "signInWithEmail:error", e);
                                                 Toast.makeText(getActivity(), "Authentication error", Toast.LENGTH_SHORT).show();
+                                                loadingDialog.dismiss();
+
                                             }
                                         });
                             } else {
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(getActivity(), "Authentication failed",
                                         Toast.LENGTH_SHORT).show();
+                                loadingDialog.dismiss();
                             }
 
                         }
                     });
         }
+
     }
 }
