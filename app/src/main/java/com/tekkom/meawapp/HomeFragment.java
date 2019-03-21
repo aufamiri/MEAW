@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,13 +30,22 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener  {
 
     View view;
     private RecyclerView recyclerView;
     private AlbumsAdapter adapter;
+    public FloatingActionButton fabScan, fabShake, fabMain;
     private List<Book> bookList;
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_main:
+                fabMainClicked();
+                break;
+        }
+    }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -43,6 +53,10 @@ public class HomeFragment extends Fragment {
 
 
         initCollapsingToolbar();
+
+        fabScan = (FloatingActionButton) view.findViewById(R.id.fab_scan);
+        fabShake = (FloatingActionButton) view.findViewById(R.id.fab_shake);
+        fabMain = (FloatingActionButton)  view.findViewById(R.id.fab_main);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
@@ -63,6 +77,7 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
+        fabMain.setOnClickListener(this);
         return view;
     }
 
@@ -70,7 +85,18 @@ public class HomeFragment extends Fragment {
         return new HomeFragment();
     }
 
+    public void fabMainClicked() {
 
+        if (fabScan.getVisibility() == fabScan.GONE) {
+            fabScan.setVisibility(fabScan.VISIBLE);
+            fabShake.setVisibility(fabShake.VISIBLE);
+        }
+
+        else {
+            fabScan.setVisibility(fabScan.GONE);
+            fabShake.setVisibility(fabShake.GONE);
+        }
+    }
 
 
     /**
@@ -184,4 +210,5 @@ public class HomeFragment extends Fragment {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
 }
