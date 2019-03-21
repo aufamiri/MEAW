@@ -91,7 +91,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 loginPassword.setError("Password cannot blank");
                 loginPassword.requestFocus();
             }
-        } else {
+    } else {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(inputEmail, inputPassword)
                     .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
@@ -114,12 +114,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                                         if (documentSnapshot.getString("firsttime").equals("1")) {
                                                             startActivity(new Intent(getActivity(), FirstLoginActivity.class));
                                                         } else {
-                                                            if (documentSnapshot.getString("status").equals("Lecture")) {
-                                                                startActivity(new Intent(getActivity(), LectureMainActivity.class));
-                                                            }
-                                                            if (documentSnapshot.getString("status").equals("Student")) {
-                                                                startActivity(new Intent(getActivity(), StudentActivity.class));
-                                                            }
+                                                            startActivity(new Intent(getActivity(), LectureMainActivity.class));
                                                         }
                                                     }
                                                 }
