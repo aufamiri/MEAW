@@ -1,5 +1,6 @@
 package com.tekkom.meawapp;
 
+import android.app.Dialog;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -36,6 +39,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener  {
     private RecyclerView recyclerView;
     private AlbumsAdapter adapter;
     public FloatingActionButton fabScan, fabShake, fabMain;
+    public Dialog fpDialog;
     private List<Book> bookList;
 
     @Override
@@ -57,6 +61,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener  {
         fabScan = (FloatingActionButton) view.findViewById(R.id.fab_scan);
         fabShake = (FloatingActionButton) view.findViewById(R.id.fab_shake);
         fabMain = (FloatingActionButton)  view.findViewById(R.id.fab_main);
+
+        fpDialog = new Dialog(getActivity());
+        fpDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        fpDialog.setContentView(R.layout.fingerprint_dialog);
+        fpDialog.setCancelable(false);
+
+        fpDialog.show();
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 

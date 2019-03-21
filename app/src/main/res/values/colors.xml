@@ -24,7 +24,8 @@
     <color name="colorBg">#b3b3b3</color>
     <color name="darkMOde">#021519</color>
     <color name="darkModeTwo">#0e3038</color>
-    <color name="transp">#80000000</color>r>
+    <color name="transp">#77000000</color>r>
+    <color name="transparan">#00FFFFFF</color>
     <color name="bgBottomNavigation">#fe485a</color>
     <color name="bgBottomNavigationtwo">#8e202a</color>
     <color name="gray">#f2f2f2</color>
