@@ -58,14 +58,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener  {
 
         initCollapsingToolbar();
 
-        fabScan = (FloatingActionButton) view.findViewById(R.id.fab_scan);
-        fabShake = (FloatingActionButton) view.findViewById(R.id.fab_shake);
-        fabMain = (FloatingActionButton)  view.findViewById(R.id.fab_main);
+        fabScan = (FloatingActionButton) view.findViewById(R.id.fab_scan); //fab untuk scan finger
+        fabShake = (FloatingActionButton) view.findViewById(R.id.fab_shake); //fab untuk shake
+        fabMain = (FloatingActionButton)  view.findViewById(R.id.fab_main); //main fab untuk munculkan 2 fab diatas
 
         fpDialog = new Dialog(getActivity());
         fpDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         fpDialog.setContentView(R.layout.fingerprint_dialog);
-        fpDialog.setCancelable(false);
 
         fpDialog.show();
 
