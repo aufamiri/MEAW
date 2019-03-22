@@ -68,11 +68,11 @@
         android:id="@+id/upload_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|right"
-        app:srcCompat="@android:drawable/ic_menu_upload"
-        android:layout_marginEnd="22dp"
+        android:layout_gravity="center|end"
+        app:srcCompat="@drawable/ic_menu_upload"
+        android:layout_marginEnd="10dp"
         android:clickable="true"
-        android:elevation="5dp"
+        android:elevation="10dp"
         android:focusable="true" />
 
     <include layout="@layout/content_upload_book" />
