@@ -1,18 +1,14 @@
 package com.tekkom.meawapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,8 +33,8 @@ import android.widget.Toast;
 
 import java.util.Objects;
 
-public class LectureMainActivity extends AppCompatActivity
-        implements ContainerFragment.TabLayoutSetupCallback, PageFragment.OnListItemClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class UserMainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private DrawerLayout drawerLayout;
@@ -52,11 +48,60 @@ public class LectureMainActivity extends AppCompatActivity
     private TextView profileName;
     private ImageView photoProfile;
 
+    private TabPagerAdapter tabPagerAdapter;
+    private ViewPager viewPager;
 
-    @Override
-    public void onListItemClick(String title) {
-        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+
+
+    private void initViewPager(ViewPager pViewPager) {
+        TabPagerAdapter pTabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
+        pTabPagerAdapter.addFragment(new HomeFragment(), "HOME");
+        pTabPagerAdapter.addFragment(new UploadBookFragment(), "UPLOAD");
+        pViewPager.setAdapter(pTabPagerAdapter);
     }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        Fragment fragment = null;
+
+        switch (item.getItemId()) {
+            case R.id.nav_account_profile:
+                fragment = new ProfileFragment();
+                break;
+            case R.id.nav_contacts:
+                fragment = new FragmentContacts();
+                break;
+            case R.id.nav_schedule:
+                fragment = new ScheduleFragment();
+                break;
+            case R.id.nav_share:
+                fragment = new ShareFragment();
+                break;
+            case R.id.nav_feedback:
+                fragment = new FeedbackFragment();
+                break;
+            case R.id.nav_about_us:
+                fragment = new FragmentAboutUs();
+                break;
+            case R.id.nav_settings:
+                fragment = new SettingFragment();
+                break;
+            case R.id.nav_help_center:
+                fragment = new HelpCenterFragment();
+                break;
+            case R.id.navbot_up_book:
+                fragment = new UploadBookFragment();
+                break;
+        }
+
+        fragmentChanger(fragment);
+
+
+        return true;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +111,20 @@ public class LectureMainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.lecture_toolbar);
         setSupportActionBar(toolbar);
 
+        //
+//
+//        tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
+//        viewPager = (ViewPager) findViewById(R.id.vp_main);
+//        initViewPager(viewPager);
+//
+//
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tab_layout);
+//        tabLayout.setupWithViewPager(viewPager);
 
+
+        ///
+
+        ///
         getDatabase();
 
         navigationView = findViewById(R.id.nav_view);
@@ -96,11 +154,19 @@ public class LectureMainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        Fragment fragment = this.getSupportFragmentManager().findFragmentById(R.id.lecture_container);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (!(fragment instanceof HomeFragment)) {
+                fragmentChanger(HomeFragment.newInstance());
+            } else {
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                startMain.addCategory(Intent.CATEGORY_HOME);
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(startMain);
+            }
         }
     }
 
@@ -122,63 +188,25 @@ public class LectureMainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        switch (item.getItemId()) {
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void setupTabLayout(ViewPager viewPager) {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.lecture_tab_layout);
-        tabLayout.setupWithViewPager(viewPager);
-    }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-        Fragment fragment = null;
-
-        switch (item.getItemId()) {
-            case R.id.nav_account_profile:
-                fragment = new ProfileFragment();
-                break;
-            case R.id.nav_contacts:
-                fragment = new ContactsFragment();
-                break;
-            case R.id.nav_schedule:
-                fragment = new ScheduleFragment();
-                break;
-            case R.id.nav_share:
-                fragment = new ShareFragment();
-                break;
-            case R.id.nav_feedback:
-                fragment = new FeedbackFragment();
-                break;
-            case R.id.nav_about_us:
-                fragment = new AboutUsFragment();
-                break;
-            case R.id.nav_settings:
-                fragment = new SettingFragment();
-                break;
-            case R.id.nav_help_center:
-                fragment = new HelpCenterFragment();
-                break;
-            case R.id.navbot_up_book:
-                fragment = new UploadBookFragment();
-                break;
-        }
-
+    void fragmentChanger(Fragment fragment) {
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.lecture_container, fragment);
             fragmentTransaction.commit();
-        }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            Toast.makeText(this, "ERROR CHANGE FRAGMENT", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void getDatabase() {
@@ -196,7 +224,7 @@ public class LectureMainActivity extends AppCompatActivity
                             if (documentSnapshot.exists()) {
                                 profileName.setText(documentSnapshot.getString("name"));
                                 String url = documentSnapshot.getString("photoProfile");
-                                if(url != "") {
+                                if (url != "") {
                                     Picasso.get().load(url).into(photoProfile);
                                 }
                                 //Glide.with(this).load(documentSnapshot.getString("photoProfile")).into(findViewById(R.id.imageView));

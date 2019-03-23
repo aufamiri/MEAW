@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".GettingStartedActivity"
+    tools:context=".ActivityGettingStarted"
     android:background="@drawable/bg_getting_started"
     android:fitsSystemWindows="true" >
 

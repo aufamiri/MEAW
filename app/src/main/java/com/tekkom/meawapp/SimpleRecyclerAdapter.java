@@ -1,5 +1,6 @@
 package com.tekkom.meawapp;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAd
             if (null != mListItemClickListener) {
                 // Notify the active callbacks interface (the activity, if the
                 // fragment is attached to one) that an item has been selected.
+                //
                 mListItemClickListener.onListItemClick(mItemsList.get(getAdapterPosition()));
             }
         }

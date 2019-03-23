@@ -51,8 +51,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         student = view.findViewById(R.id.register_btn_student);
         lecture = view.findViewById(R.id.register_btn_lecture);
 
-        student.setTag(R.drawable.sh_pink);
-        lecture.setTag(R.drawable.sh_pink);
+        student.setTag(R.drawable.sh_lightblue);
+        lecture.setTag(R.drawable.sh_lightblue);
 
         status = "";
         student.setOnClickListener(this);
@@ -75,18 +75,18 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 createNewAccount();
                 break;
             case R.id.register_btn_student:
-                if (student.getTag().equals(R.drawable.sh_pink)) {
-                    student.setBackgroundResource(R.drawable.sh_red);
-                    lecture.setBackgroundResource(R.drawable.sh_pink);
-                    student.setTag(R.drawable.sh_pink);
+                if (student.getTag().equals(R.drawable.sh_lightblue)) {
+                    student.setBackgroundResource(R.drawable.sh_darkerblue);
+                    lecture.setBackgroundResource(R.drawable.sh_lightblue);
+                    student.setTag(R.drawable.sh_lightblue);
                     status = "Student";
                 }
                 break;
             case R.id.register_btn_lecture:
-                if (lecture.getTag().equals(R.drawable.sh_pink)) {
-                    lecture.setBackgroundResource(R.drawable.sh_red);
-                    student.setBackgroundResource(R.drawable.sh_pink);
-                    lecture.setTag(R.drawable.sh_pink);
+                if (lecture.getTag().equals(R.drawable.sh_lightblue)) {
+                    lecture.setBackgroundResource(R.drawable.sh_darkerblue);
+                    student.setBackgroundResource(R.drawable.sh_lightblue);
+                    lecture.setTag(R.drawable.sh_lightblue);
                     status = "Lecture";
                 }
                 break;

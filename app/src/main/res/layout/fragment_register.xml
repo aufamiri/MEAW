@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterFragment">
+    tools:context=".FragmentRegister">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,49 +12,57 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/register_txb_email"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/sh_login_up"
-            android:gravity="center"
-            android:hint="@string/your_email"
-            android:textColor="@color/white"
-            android:textColorHint="@color/transparentWhite"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/register_txb_password"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/sh_login_mid"
-            android:gravity="center"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/transparentWhite"
-            android:textSize="20sp" />
+            <EditText
+                android:id="@+id/register_txb_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:hint="@string/your_email"
+                android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/register_txb_confirm_password"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/sh_login_bottom"
-            android:gravity="center"
-            android:hint="@string/confirm_password"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/transparentWhite"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/register_txb_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/register_txb_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,7 +71,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/your_status"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -82,11 +90,11 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/sh_pink"
+                android:background="@drawable/sh_lightblue"
                 android:gravity="center"
                 android:text="@string/student"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp" />
 
             <Button
@@ -96,11 +104,11 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/sh_pink"
+                android:background="@drawable/sh_lightblue"
                 android:gravity="center"
                 android:text="@string/lecture"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -127,7 +135,7 @@
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="@string/go_to_login_page"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold" />
     </LinearLayout>

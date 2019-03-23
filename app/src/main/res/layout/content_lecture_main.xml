@@ -5,8 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".LectureMainActivity"
+    tools:context=".ActivityUser"
     tools:showIn="@layout/app_bar_lecture_main"
     android:id="@+id/lecture_container">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
 
 </androidx.appcompat.widget.ContentFrameLayout>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/yellowPrimary"
-    tools:context=".UploadBookFragment">
+    tools:context=".FragmentUpload">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -68,11 +68,11 @@
         android:id="@+id/upload_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|right"
-        app:srcCompat="@android:drawable/ic_menu_upload"
-        android:layout_marginEnd="22dp"
+        android:layout_gravity="center|end"
+        android:layout_marginEnd="10dp"
+        android:elevation="10dp"
         android:clickable="true"
-        android:elevation="5dp"
+        app:srcCompat="@drawable/ic_menu_upload"
         android:focusable="true" />
 
     <include layout="@layout/content_upload_book" />

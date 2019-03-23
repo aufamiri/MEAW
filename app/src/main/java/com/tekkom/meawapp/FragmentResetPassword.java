@@ -49,7 +49,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.forgetpassword_txv_go_to_login_page:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.login_frg_panel, new LoginFragment())
+                        .replace(R.id.login_frg_panel, new FragmentLogin())
                         .commit();
                 break;
         }

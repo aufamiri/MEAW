@@ -28,12 +28,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "ProfileFragment";
     private View view;
-    private EditText inputUserName, inputName, inputID;
-    private TextView inputStatus, inputDepartement;
+    private EditText inputUserName, inputName;
+    private TextView inputStatus;
     private Button change;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
+    }
+
+    public static String getTAG() {
+        return TAG;
     }
 
     @Override
@@ -78,8 +82,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                                 inputUserName.setHint(documentSnapshot.getString("username"));
                                 inputName.setHint(documentSnapshot.getString("name"));
                                 inputStatus.setText(documentSnapshot.getString("status"));
-                                inputID.setHint(documentSnapshot.getString("id"));
-                                inputDepartement.setHint(documentSnapshot.getString("departement"));
                             } else {
                                 Log.d(TAG, "No such document");
                             }
@@ -93,11 +95,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private void updateDatabase() {
         String userName = inputUserName.getText().toString().trim();
         String name = inputName.getText().toString().trim();
-        String id = inputID.getText().toString().trim();
-        if (inputID.getText().toString().length() >= 4) {
-            checkDepartement();
-        }
-        String departement = inputDepartement.getText().toString().trim();
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Map<String, Object> user = new HashMap<>();
@@ -106,12 +103,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         }
         if (inputName.length() >= 4) {
             user.put("name", name);
-        }
-        if (inputID.length() >= 4) {
-            user.put("id", id);
-        }
-        if (inputDepartement.length() >= 4) {
-            user.put("departement", departement);
         }
 
         FirebaseFirestore.getInstance()
@@ -133,21 +124,4 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 });
     }
 
-    private void checkDepartement() {
-        final String departementID = inputID.getText().toString().trim().substring(0, 4);
-        switch (departementID) {
-            case "0721":
-                inputDepartement.setText("Teknik Komputer");
-                break;
-            case "0711":
-                inputDepartement.setText("Teknik Elektro");
-                break;
-            case "0731":
-                inputDepartement.setText("Teknik Biomedik");
-                break;
-            default:
-                inputDepartement.setText("Teknik Komputer");
-                break;
-        }
-    }
 }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+    tools:context=".FragmentLogin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,36 +12,41 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <EditText
-
-            android:id="@+id/login_txb_email"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/sh_login_up"
-            android:gravity="center"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/white"
-            android:textColorHint="@color/transparentWhite"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/login_txb_password"
+            <EditText
+
+                android:id="@+id/login_txb_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/sh_login_bottom"
-            android:gravity="center"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="@color/white"
-            android:textColorHint="@color/transparentWhite"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/login_txb_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/login_btn_log_in"
@@ -72,7 +77,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/create_new_account"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -82,7 +87,9 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/vertical_line"
-                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -93,11 +100,22 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/forget_password"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
 
 </FrameLayout>

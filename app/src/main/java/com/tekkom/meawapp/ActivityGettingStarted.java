@@ -21,8 +21,6 @@ public class GettingStartedActivity extends AppIntro {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addSlide(new GettingStarted1Fragment());
-        addSlide(new GettingStarted2Fragment());
         showSkipButton(false);
         showStatusBar(false);
         setFadeAnimation();
