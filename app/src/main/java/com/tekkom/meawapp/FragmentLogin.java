@@ -32,8 +32,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     public View view;
     private EditText loginEmail, loginPassword;
     private TextView loginForgetPassword, loginCreateAccount;
-    private Button loginButton;
-    private Dialog loadingDialog;
+    private Button loginButton, cancelButton;
+    private Dialog loadingDialog, fpDialog;
 
 //    private static final int REQUEST_PERMISSION = 9;
 //    private static final int REQUEST_WRITE_STORAGE = 10;
@@ -70,6 +70,20 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         loginEmail = view.findViewById(R.id.login_txb_email);
         loginPassword = view.findViewById(R.id.login_txb_password);
 
+        fpDialog = new Dialog(getActivity());
+        fpDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        fpDialog.setContentView(R.layout.fingerprint_dialog);
+        fpDialog.setCancelable(false);
+        fpDialog.show();
+
+        cancelButton = (Button) fpDialog.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fpDialog.dismiss();
+            }
+        });
+
         loginCreateAccount = view.findViewById(R.id.login_txv_create_new_account);
         loginForgetPassword = view.findViewById(R.id.login_txv_forget_password);
 
@@ -78,6 +92,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         loadingDialog = new Dialog(Objects.requireNonNull(getActivity()));
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         loadingDialog.setContentView(R.layout.progress_bar_dialog);
+        loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         loadingDialog.setCancelable(false);
 
         loginForgetPassword.setOnClickListener(this);

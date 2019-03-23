@@ -32,10 +32,10 @@
                 android:layout_alignLeft="@+id/thumbnail"
                 android:layout_alignTop="@+id/thumbnail"
                 android:background="@color/white"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:text="1"
-                android:fontFamily="@font/futura_bold"
-                android:textSize="30sp" />
+                android:fontFamily="@font/futura_book"
+                android:textSize="20sp" />
             <TextView
                 android:inputType="textMultiLine"
                 android:id="@+id/title"

@@ -1,6 +1,8 @@
 package com.tekkom.meawapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -13,14 +15,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHolder> {
 
     private Context mContext;
+    public FirebaseStorage firebaseStorage;
     private List<Book> bookList;
 
     public AlbumsAdapter(Context mContext, List<Book> bookList) {
@@ -30,7 +40,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Book book = bookList.get(position);
+        final Book book = bookList.get(position);
         holder.title.setText(book.getNamaMateri());
         holder.idText.setText(String.valueOf(position + 1));
 
@@ -46,9 +56,45 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Test", "jalan");
+                downloadFiles(book);
             }
         });
+    }
+
+    public void downloadFiles(Book book) {
+        firebaseStorage = FirebaseStorage.getInstance();
+        try {
+            final File localFile = File.createTempFile("tmp", ".pdf");
+
+            firebaseStorage
+                    .getReferenceFromUrl(book.getBookURL())
+                    .getFile(localFile)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Log.d("downloaded", "success");
+                            Intent target = new Intent(Intent.ACTION_VIEW);
+                            target.setDataAndType(Uri.fromFile(localFile), "application/pdf");
+                            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            target.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                            //create IntentChooser
+                            Intent viewerIntent = Intent.createChooser(target, "Open PDF");
+                            mContext.startActivity(viewerIntent);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Error", String.valueOf(e));
+                        }
+                    });
+            /*
+            */
+        }
+        catch (IOException e) {
+            Log.d("Error", String.valueOf(e));
+        }
     }
 
     @Override
