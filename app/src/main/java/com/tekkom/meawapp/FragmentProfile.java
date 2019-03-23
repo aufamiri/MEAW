@@ -1,9 +1,6 @@
 package com.tekkom.meawapp;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +21,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProfileFragment extends Fragment implements View.OnClickListener {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-    private static final String TAG = "ProfileFragment";
+public class FragmentProfile extends Fragment implements View.OnClickListener {
+
+    private static final String TAG = "FragmentProfile";
     private View view;
     private EditText inputUserName, inputName;
     private TextView inputStatus;
     private Button change;
 
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
+    public static FragmentProfile newInstance() {
+        return new FragmentProfile();
     }
 
     public static String getTAG() {

@@ -8,13 +8,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,14 +32,19 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
 import static android.app.Activity.RESULT_OK;
 
-public class UploadBookFragment extends Fragment implements View.OnClickListener {
+public class FragmentUpload extends Fragment implements View.OnClickListener {
 
     private static final int REQUEST_WRITE_STORAGE = 10;
     private static final int REQUEST_READ_STORAGE = 11;
@@ -58,7 +56,7 @@ public class UploadBookFragment extends Fragment implements View.OnClickListener
     private static final int BOOK = 0;
     private static final int BUTTON_YES = 1;
     private static final int COVER = 1;
-    private static final String TAG = "UploadBookFragment";
+    private static final String TAG = "FragmentUpload";
 
 
     protected String startDay, startMonth, startYear, endDay, endMonth, endYear;
@@ -76,8 +74,8 @@ public class UploadBookFragment extends Fragment implements View.OnClickListener
 
     private FloatingActionButton fab;
 
-    public static UploadBookFragment newInstance() {
-        return new UploadBookFragment();
+    public static FragmentUpload newInstance() {
+        return new FragmentUpload();
     }
 
     @Override
@@ -121,7 +119,7 @@ public class UploadBookFragment extends Fragment implements View.OnClickListener
         startMonth = Integer.toString(-9);
         startYear = Integer.toString(-9);
 
-        fab = (FloatingActionButton) view.findViewById(R.id.upload_upload);
+        fab = view.findViewById(R.id.upload_upload);
         fab.setOnClickListener(this);
 
         return view;

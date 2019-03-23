@@ -3,8 +3,6 @@ package com.tekkom.meawapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +14,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 
 public class SettingFragment extends Fragment implements View.OnClickListener {
@@ -47,7 +48,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
             case R.id.settings_frg_tv_log_out:
                 FirebaseAuth.getInstance()
                         .signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                startActivity(new Intent(getActivity(), ActivityLogin.class));
                 break;
             case R.id.settings_frg_tv_reset_password:
                 resetPassword();

@@ -3,8 +3,6 @@ package com.tekkom.meawapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -28,6 +25,9 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class FirstLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -158,7 +158,7 @@ public class FirstLoginActivity extends AppCompatActivity implements View.OnClic
                                     Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
 
                                     if (documentSnapshot.getString("status").equals("Lecture")) {
-                                        startActivity(new Intent(FirstLoginActivity.this, LectureMainActivity.class));
+                                        startActivity(new Intent(FirstLoginActivity.this, ActivityUser.class));
                                     } else if (documentSnapshot.getString("status").equals("Student")) {
                                         startActivity(new Intent(FirstLoginActivity.this, StudentActivity.class));
                                     }

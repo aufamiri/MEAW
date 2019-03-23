@@ -1,8 +1,6 @@
 package com.tekkom.meawapp;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +21,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
-public class RegisterFragment extends Fragment implements View.OnClickListener {
 
-    private static final String TAG = "RegisterFragment";
+public class FragmentRegister extends Fragment implements View.OnClickListener {
+
+    private static final String TAG = "FragmentRegister";
     public View view;
     public EditText registerEmail, registerPassword, registerConfirmPassword;
     public TextView registerLoginPage;
@@ -68,7 +69,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.register_txv_go_to_login_page:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.login_frg_panel, new LoginFragment())
+                        .replace(R.id.fm_activity_login, new FragmentLogin())
                         .commit();
                 break;
             case R.id.register_btn_create_account:

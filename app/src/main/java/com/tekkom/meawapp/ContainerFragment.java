@@ -27,7 +27,7 @@ public class ContainerFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof LectureMainActivity) {
+        if (context instanceof ActivityUser) {
             mToolbarSetupCallback = (TabLayoutSetupCallback) context;
         } else {
             throw new ClassCastException(context.toString() + " must implement TabLayoutSetupCallback");
@@ -48,7 +48,7 @@ public class ContainerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_container, container, false);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        ViewPager viewPager = view.findViewById(R.id.viewPager);
         viewPager.setAdapter(new ItemsPagerAdapter(getChildFragmentManager(), mTabNamesList));
         mToolbarSetupCallback.setupTabLayout(viewPager);
 
@@ -70,9 +70,9 @@ public class ContainerFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return HomeFragment.newInstance();
+                    return FragmentHome.newInstance();
                 case 1:
-                    return UploadBookFragment.newInstance();
+                    return FragmentUpload.newInstance();
             }
             return null;
         }

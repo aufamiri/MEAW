@@ -1,6 +1,5 @@
 package com.tekkom.meawapp;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,7 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAd
         public ViewHolder(View v) {
             super(v);
 
-            title = (TextView) v.findViewById(R.id.title);
+            title = v.findViewById(R.id.title);
             v.setOnClickListener(this);
         }
 

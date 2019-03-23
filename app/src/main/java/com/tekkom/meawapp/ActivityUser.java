@@ -2,39 +2,37 @@ package com.tekkom.meawapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import android.view.View;
-
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Objects;
-
-public class UserMainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class ActivityUser extends AppCompatActivity
+        implements ContainerFragment.TabLayoutSetupCallback, PageFragment.OnListItemClickListener, NavigationView.OnNavigationItemSelectedListener {
 
 
     private DrawerLayout drawerLayout;
@@ -52,11 +50,10 @@ public class UserMainActivity extends AppCompatActivity
     private ViewPager viewPager;
 
 
-
     private void initViewPager(ViewPager pViewPager) {
         TabPagerAdapter pTabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
-        pTabPagerAdapter.addFragment(new HomeFragment(), "HOME");
-        pTabPagerAdapter.addFragment(new UploadBookFragment(), "UPLOAD");
+        pTabPagerAdapter.addFragment(new FragmentHome(), "HOME");
+        pTabPagerAdapter.addFragment(new FragmentUpload(), "UPLOAD");
         pViewPager.setAdapter(pTabPagerAdapter);
     }
 
@@ -68,7 +65,7 @@ public class UserMainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.nav_account_profile:
-                fragment = new ProfileFragment();
+                fragment = new FragmentProfile();
                 break;
             case R.id.nav_contacts:
                 fragment = new FragmentContacts();
@@ -89,10 +86,10 @@ public class UserMainActivity extends AppCompatActivity
                 fragment = new SettingFragment();
                 break;
             case R.id.nav_help_center:
-                fragment = new HelpCenterFragment();
+                fragment = new FragmentHelpCenter();
                 break;
             case R.id.navbot_up_book:
-                fragment = new UploadBookFragment();
+                fragment = new FragmentUpload();
                 break;
         }
 
@@ -104,27 +101,32 @@ public class UserMainActivity extends AppCompatActivity
 
 
     @Override
+    public void onListItemClick(String title) {
+
+        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void setupTabLayout(ViewPager viewPager) {
+
+        TabLayout tabLayout = findViewById(R.id.main_tab_layout);
+
+        tabLayout.setupWithViewPager(viewPager);
+
+    }
+
+
+    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecture_main);
 
-        toolbar = (Toolbar) findViewById(R.id.lecture_toolbar);
+
+        toolbar = findViewById(R.id.lecture_toolbar);
         setSupportActionBar(toolbar);
 
-        //
-//
-//        tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
-//        viewPager = (ViewPager) findViewById(R.id.vp_main);
-//        initViewPager(viewPager);
-//
-//
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tab_layout);
-//        tabLayout.setupWithViewPager(viewPager);
-
-
-        ///
-
-        ///
         getDatabase();
 
         navigationView = findViewById(R.id.nav_view);
@@ -132,20 +134,24 @@ public class UserMainActivity extends AppCompatActivity
         profileName = navView.findViewById(R.id.navheaderlectureprofile_name);
         photoProfile = navView.findViewById(R.id.photo_profile);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         if (savedInstanceState == null) {
             // update the main content by replacing fragments
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             FragmentTransaction transaction = fragmentManager.beginTransaction();
+
 
             transaction.replace(R.id.lecture_container, new ContainerFragment());
             transaction.commit();
@@ -154,13 +160,14 @@ public class UserMainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        //Fragment fragment = this.getSupportFragmentManager().findFragmentById(R.id.vp_main);
         Fragment fragment = this.getSupportFragmentManager().findFragmentById(R.id.lecture_container);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (!(fragment instanceof HomeFragment)) {
-                fragmentChanger(HomeFragment.newInstance());
+            if (!(fragment instanceof FragmentHome)) {
+                fragmentChanger(FragmentHome.newInstance());
             } else {
                 Intent startMain = new Intent(Intent.ACTION_MAIN);
                 startMain.addCategory(Intent.CATEGORY_HOME);

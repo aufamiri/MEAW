@@ -1,8 +1,6 @@
 package com.tekkom.meawapp;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +15,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
-public class ResetPasswordFragment extends Fragment implements View.OnClickListener {
 
-    private final String TAG = "ResetPasswordFragment";
+public class FragmentResetPassword extends Fragment implements View.OnClickListener {
+
+    private final String TAG = "FragmentResetPassword";
     public View view;
     private EditText email;
     private Button send;
@@ -49,7 +50,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.forgetpassword_txv_go_to_login_page:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.login_frg_panel, new FragmentLogin())
+                        .replace(R.id.fm_activity_login, new FragmentLogin())
                         .commit();
                 break;
         }

@@ -4,20 +4,11 @@ import android.app.Dialog;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +24,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements View.OnClickListener  {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class FragmentHome extends Fragment implements View.OnClickListener {
 
     View view;
     private RecyclerView recyclerView;
@@ -50,17 +48,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener  {
                 break;
         }
     }
+
+    public static FragmentHome newInstance() {
+        return new FragmentHome();
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.home_fragment, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
         initCollapsingToolbar();
 
-        fabScan = (FloatingActionButton) view.findViewById(R.id.fab_scan); //fab untuk scan finger
-        fabShake = (FloatingActionButton) view.findViewById(R.id.fab_shake); //fab untuk shake
-        fabMain = (FloatingActionButton)  view.findViewById(R.id.fab_main); //main fab untuk munculkan 2 fab diatas
+        fabScan = view.findViewById(R.id.fab_scan); //fab untuk scan finger
+        fabShake = view.findViewById(R.id.fab_shake); //fab untuk shake
+        fabMain = view.findViewById(R.id.fab_main); //main fab untuk munculkan 2 fab diatas
 
         fpDialog = new Dialog(getActivity());
         fpDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -68,14 +71,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener  {
 
         fpDialog.show();
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
 
         bookList = new ArrayList<>();
         adapter = new AlbumsAdapter(getContext(), bookList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new HomeFragment.GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.addItemDecoration(new FragmentHome.GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
@@ -91,20 +94,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener  {
         return view;
     }
 
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
-    }
-
     public void fabMainClicked() {
 
-        if (fabScan.getVisibility() == fabScan.GONE) {
-            fabScan.setVisibility(fabScan.VISIBLE);
-            fabShake.setVisibility(fabShake.VISIBLE);
-        }
-
-        else {
-            fabScan.setVisibility(fabScan.GONE);
-            fabShake.setVisibility(fabShake.GONE);
+        if (fabScan.getVisibility() == View.GONE) {
+            fabScan.setVisibility(View.VISIBLE);
+            fabShake.setVisibility(View.VISIBLE);
+        } else {
+            fabScan.setVisibility(View.GONE);
+            fabShake.setVisibility(View.GONE);
         }
     }
 
@@ -115,9 +112,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener  {
      */
     private void initCollapsingToolbar() {
         final CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
+                view.findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(" ");
-        AppBarLayout appBarLayout = (AppBarLayout) view.findViewById(R.id.appbar);
+        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
         appBarLayout.setExpanded(true);
 
         // hiding & showing the title when toolbar expanded & collapsed

@@ -23,38 +23,16 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
     private Context mContext;
     private List<Book> bookList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, idText;
-        public ImageView thumbnail, overflow;
-
-        public MyViewHolder(View view) {
-            super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            idText = (TextView) view.findViewById(R.id.idText);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
-        }
-    }
-
-
     public AlbumsAdapter(Context mContext, List<Book> bookList) {
         this.mContext = mContext;
         this.bookList = bookList;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.album_card, parent, false);
-
-        return new MyViewHolder(itemView);
-    }
-
-    @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Book book = bookList.get(position);
         holder.title.setText(book.getNamaMateri());
-        holder.idText.setText(String.valueOf(position+1));
+        holder.idText.setText(String.valueOf(position + 1));
 
         // loading book cover using Glide library
         Glide.with(mContext).load(book.getCoverURL()).into(holder.thumbnail);
@@ -71,6 +49,27 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                 Log.d("Test", "jalan");
             }
         });
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.album_card, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView title, idText;
+        public ImageView thumbnail, overflow;
+
+        public MyViewHolder(View view) {
+            super(view);
+            title = view.findViewById(R.id.title);
+            idText = view.findViewById(R.id.idText);
+            thumbnail = view.findViewById(R.id.thumbnail);
+            overflow = view.findViewById(R.id.overflow);
+        }
     }
 
     /**

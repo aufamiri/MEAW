@@ -1,16 +1,8 @@
 package com.tekkom.meawapp;
 
-import android.Manifest;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,38 +21,42 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
-public class LoginFragment extends Fragment implements View.OnClickListener {
-    private static final String TAG = "LoginFragment";
+
+public class FragmentLogin extends Fragment implements View.OnClickListener {
+    private static final String TAG = "FragmentLogin";
     public View view;
-    public EditText loginEmail, loginPassword;
-    public TextView loginForgetPassword, loginCreateAccount;
-    public Button loginButton;
-    public Dialog loadingDialog;
+    private EditText loginEmail, loginPassword;
+    private TextView loginForgetPassword, loginCreateAccount;
+    private Button loginButton;
+    private Dialog loadingDialog;
 
-    private static final int REQUEST_PERMISSION = 9;
-    private static final int REQUEST_WRITE_STORAGE = 10;
-    private static final int REQUEST_READ_STORAGE = 11;
-    private static final int REQUEST_INTERNET = 12;
-    private static final int REQUEST_CAMERA = 13;
+//    private static final int REQUEST_PERMISSION = 9;
+//    private static final int REQUEST_WRITE_STORAGE = 10;
+//    private static final int REQUEST_READ_STORAGE = 11;
+//    private static final int REQUEST_INTERNET = 12;
+//    private static final int REQUEST_CAMERA = 13;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_txv_create_new_account:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.login_frg_panel, new RegisterFragment())
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fm_activity_login, new FragmentRegister())
                         .commit();
                 break;
             case R.id.login_btn_log_in:
                 userLogin();
                 break;
             case R.id.login_txv_forget_password:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.login_frg_panel, new ResetPasswordFragment())
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fm_activity_login, new FragmentResetPassword())
                         .commit();
                 break;
         }
@@ -79,7 +75,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         loginButton = view.findViewById(R.id.login_btn_log_in);
 
-        loadingDialog = new Dialog(getActivity());
+        loadingDialog = new Dialog(Objects.requireNonNull(getActivity()));
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         loadingDialog.setContentView(R.layout.progress_bar_dialog);
         loadingDialog.setCancelable(false);
@@ -87,7 +83,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         loginForgetPassword.setOnClickListener(this);
         loginCreateAccount.setOnClickListener(this);
         loginButton.setOnClickListener(this);
-        checkPermission();
+        //checkPermission();
         return view;
     }
 
@@ -106,7 +102,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 loginPassword.setError("Password cannot blank");
                 loginPassword.requestFocus();
             }
-    } else {
+        } else {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(inputEmail, inputPassword)
                     .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
@@ -129,7 +125,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                                         if (documentSnapshot.getString("firsttime").equals("1")) {
                                                             startActivity(new Intent(getActivity(), FirstLoginActivity.class));
                                                         } else {
-                                                            startActivity(new Intent(getActivity(), UserMainActivity.class));
+                                                            startActivity(new Intent(getActivity(), ActivityUser.class));
                                                         }
                                                     }
                                                 }
@@ -154,108 +150,106 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         }
                     });
         }
-
     }
 
-    private void checkPermission() {
-        ArrayList<String> permissionList = new ArrayList<>();
-        ArrayList<Integer> requestCodeList = new ArrayList<>();
-
-        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            requestCodeList.add(REQUEST_WRITE_STORAGE);
-        }
-
-        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()),
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-            permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-            requestCodeList.add(REQUEST_READ_STORAGE);
-
-        }
-
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-
-            permissionList.add(Manifest.permission.INTERNET);
-            requestCodeList.add(REQUEST_INTERNET);
-
-
-        }
-
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-
-            permissionList.add(Manifest.permission.CAMERA);
-            requestCodeList.add(REQUEST_CAMERA);
-
-        }
-
-        String[] Permissions = {
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.INTERNET,
-                Manifest.permission.CAMERA };
-
-        if(!hasPermissions(getContext(), Permissions)){
-
-            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), Permissions, 112);
-
-        }
-
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_READ_STORAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //
-                }
-                break;
-            case REQUEST_WRITE_STORAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //
-                }
-                break;
-            case REQUEST_INTERNET:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //
-                }
-                break;
-            case REQUEST_CAMERA:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //
-                }
-                break;
-            case 112:
-                break;
-
-        }
-    }
-
-    public static boolean hasPermissions(Context context, String... permissions){
-
-
-
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M && context!=null && permissions!=null){
-
-            for(String permission: permissions){
-
-                if(ActivityCompat.checkSelfPermission(context, permission)!= PackageManager.PERMISSION_GRANTED){
-
-                    return  false;
-
-                }
-
-            }
-
-        }
-
-        return true;
-
-    }
+//    private void checkPermission() {
+//        ArrayList<String> permissionList = new ArrayList<>();
+//        ArrayList<Integer> requestCodeList = new ArrayList<>();
+//
+//        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()),
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//            requestCodeList.add(REQUEST_WRITE_STORAGE);
+//        }
+//
+//        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()),
+//                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//
+//            permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+//            requestCodeList.add(REQUEST_READ_STORAGE);
+//
+//        }
+//
+//        if (ContextCompat.checkSelfPermission(getContext(),
+//                Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+//
+//            permissionList.add(Manifest.permission.INTERNET);
+//            requestCodeList.add(REQUEST_INTERNET);
+//
+//
+//        }
+//
+//        if (ContextCompat.checkSelfPermission(getContext(),
+//                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//
+//            permissionList.add(Manifest.permission.CAMERA);
+//            requestCodeList.add(REQUEST_CAMERA);
+//
+//        }
+//
+//        String[] Permissions = {
+//                Manifest.permission.READ_EXTERNAL_STORAGE,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                Manifest.permission.INTERNET,
+//                Manifest.permission.CAMERA};
+//
+//        if (!hasPermissions(getContext(), Permissions)) {
+//
+//            ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), Permissions, 112);
+//
+//        }
+//
+//
+//    }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        switch (requestCode) {
+//            case REQUEST_READ_STORAGE:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    //
+//                }
+//                break;
+//            case REQUEST_WRITE_STORAGE:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    //
+//                }
+//                break;
+//            case REQUEST_INTERNET:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    //
+//                }
+//                break;
+//            case REQUEST_CAMERA:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    //
+//                }
+//                break;
+//            case 112:
+//                break;
+//
+//        }
+//    }
+//
+//    public static boolean hasPermissions(Context context, String... permissions) {
+//
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+//
+//            for (String permission : permissions) {
+//
+//                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+//
+//                    return false;
+//
+//                }
+//
+//            }
+//
+//        }
+//
+//        return true;
+//
+//    }
 
 }

@@ -2,17 +2,6 @@ package com.tekkom.meawapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,12 +10,22 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 public class LectureProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,14 +80,14 @@ public class LectureProfileActivity extends AppCompatActivity
 //        if (drawer.isDrawerOpen(GravityCompat.START)) {
 //            drawer.closeDrawer(GravityCompat.START);
 //        } else {
-//            if (getSupportFragmentManager().findFragmentById(R.id.profile_activity_fragment_area) instanceof HomeFragment) {
+//            if (getSupportFragmentManager().findFragmentById(R.id.profile_activity_fragment_area) instanceof FragmentHome) {
 //                startActivity(new Intent(Intent.ACTION_MAIN)
 //                        .addCategory(Intent.CATEGORY_HOME)
 //                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 //            } else {
 //                getSupportFragmentManager()
 //                        .beginTransaction()
-//                        .replace(R.id.profile_activity_fragment_area, new HomeFragment())
+//                        .replace(R.id.profile_activity_fragment_area, new FragmentHome())
 //                        .commit();
 //            }
 //
@@ -111,7 +110,7 @@ public class LectureProfileActivity extends AppCompatActivity
 //            case R.id.navbot_up_book:
 //                getSupportFragmentManager()
 //                        .beginTransaction()
-//                        .replace(R.id.profile_activity_fragment_area, new UploadBookFragment())
+//                        .replace(R.id.profile_activity_fragment_area, new FragmentUpload())
 //                        .commit();
 //                return true;
 //            case R.id.navbot_dw_book:
@@ -129,7 +128,7 @@ public class LectureProfileActivity extends AppCompatActivity
 //            case R.id.navbot_home:
 //                getSupportFragmentManager()
 //                        .beginTransaction()
-//                        .replace(R.id.profile_activity_fragment_area, new HomeFragment())
+//                        .replace(R.id.profile_activity_fragment_area, new FragmentHome())
 //                        .commit();
 //                return true;
 //            default:
@@ -146,10 +145,10 @@ public class LectureProfileActivity extends AppCompatActivity
 //
 //        switch (item.getItemId()) {
 //            case R.id.nav_account_profile:
-//                fragment = new ProfileFragment();
+//                fragment = new FragmentProfile();
 //                break;
 //            case R.id.nav_contacts:
-//                fragment = new ContactsFragment();
+//                fragment = new FragmentContacts();
 //                break;
 //            case R.id.nav_schedule:
 //                fragment = new ScheduleFragment();
@@ -161,16 +160,16 @@ public class LectureProfileActivity extends AppCompatActivity
 //                fragment = new FeedbackFragment();
 //                break;
 //            case R.id.nav_about_us:
-//                fragment = new AboutUsFragment();
+//                fragment = new FragmentAboutUs();
 //                break;
 //            case R.id.nav_settings:
 //                fragment = new SettingFragment();
 //                break;
 //            case R.id.nav_help_center:
-//                fragment = new HelpCenterFragment();
+//                fragment = new FragmentHelpCenter();
 //                break;
 //            case R.id.navbot_up_book:
-//                fragment = new UploadBookFragment();
+//                fragment = new FragmentUpload();
 //                break;
 //        }
 //
