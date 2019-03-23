@@ -4,7 +4,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryBackground">
+    android:background="@color/backgroundLight">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -13,7 +13,7 @@
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <include layout="@layout/addon_home_tab_bar" />
+        <!--<include layout="@layout/addon_activity_home_tab_bar" />-->
 
         <include layout="@layout/addon_book_banner" />
         <!--<com.google.android.material.appbar.CollapsingToolbarLayout-->
@@ -69,7 +69,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_lecture_home" />
+    <!--<include layout="@layout/content_fragment_home" />-->
+    <include layout="@layout/content_fragment_home" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_main"

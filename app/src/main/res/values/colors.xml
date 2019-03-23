@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--TODO PEWARNAAN: GUNAKAN WARNA DIANTARA COMMENT COLOR-->
+    <!--Color-->
     <color name="colorPrimary">#D81138</color>
     <color name="colorPrimaryDark">#8A0030</color>
-    <color name="colorPrimaryBackground">#ECCACA</color>
     <color name="colorAccent">#D81B60</color>
+    
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="transparentWhite">#64ffffff</color>
+    <color name="transparentGrey">#642b2a2a</color>
+
+    <color name="backgroundLight">#ECCACA</color>
+    <color name="backgroundDark">#1F0606</color>
+
 
     <color name="darkBlue">#071436</color>
     <color name="lightBlue">#36aaf2</color>
     <color name="darkerBlue">#247DB3</color>
     <color name="lightYellow">#31ffee00</color>
-    <color name="white">#FFFFFF</color>
-    <color name="transparentWhite">#64ffffff</color>
+
+    <!--/Color-->
+
+
     <color name="grey">#727171</color>
-    <color name="transparentGrey">#642b2a2a</color>
-    <color name="black">#000000</color>
+
+
     <color name="transparentYellow">#64f2ca17</color>
     <color name="yellow">#ffe300</color>
     <color name="darkYellow">#9e8100</color>

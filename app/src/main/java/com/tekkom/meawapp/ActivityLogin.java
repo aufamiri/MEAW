@@ -49,7 +49,7 @@ public class ActivityLogin extends AppCompatActivity {
         super.onStart();
 
 //        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-//            //startActivity(new Intent(this, ActivityUser.class));
+//            //startActivity(new Intent(this, ActivityHome.class));
 //        } else {
 //            setContentView(R.layout.activity_login);
 //

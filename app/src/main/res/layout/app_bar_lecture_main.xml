@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityUser">
+    tools:context=".ActivityHome">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -31,6 +31,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_lecture_main" />
+    <include layout="@layout/content_activity_home" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

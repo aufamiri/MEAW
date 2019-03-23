@@ -49,4 +49,7 @@
                 android:textSize="@dimen/backdrop_subtitle" />
 
         </LinearLayout>
+
     </RelativeLayout>
+
+</com.google.android.material.appbar.CollapsingToolbarLayout>

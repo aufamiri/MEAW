@@ -19,7 +19,7 @@ public class ActivityMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            //startActivity(new Intent(this, ActivityUser.class));
+            //startActivity(new Intent(this, ActivityHome.class));
             startActivity(new Intent(this, ActivityLogin.class));
         } else {
             startActivity(new Intent(this, ActivityGettingStarted.class));
