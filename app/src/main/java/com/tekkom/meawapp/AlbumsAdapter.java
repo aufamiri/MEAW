@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHolder> {
@@ -56,7 +58,12 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                downloadFiles(book);
+                //downloadFiles(book);
+
+                getSupportFragmentManager()
+                        .beginTrnsaction
+
+                fragment = new FragmentDetailBook(book);
             }
         });
     }
@@ -73,6 +80,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                             Log.d("downloaded", "success");
+
                             Intent target = new Intent(Intent.ACTION_VIEW);
                             target.setDataAndType(Uri.fromFile(localFile), "application/pdf");
                             target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -89,8 +97,6 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                             Log.d("Error", String.valueOf(e));
                         }
                     });
-            /*
-            */
         }
         catch (IOException e) {
             Log.d("Error", String.valueOf(e));

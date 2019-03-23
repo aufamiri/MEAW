@@ -13,17 +13,17 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width='300dp'
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/sh_login_full">
 
             <EditText
 
                 android:id="@+id/login_txb_email"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:textSize="20sp" />
@@ -31,16 +31,16 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width='300dp'
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/sh_login_full">
 
             <EditText
                 android:id="@+id/login_txb_password"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textSize="20sp" />

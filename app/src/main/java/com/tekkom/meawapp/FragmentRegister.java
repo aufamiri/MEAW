@@ -49,15 +49,15 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
 
         registerButton = view.findViewById(R.id.register_btn_create_account);
 
-        student = view.findViewById(R.id.register_btn_student);
-        lecture = view.findViewById(R.id.register_btn_lecture);
+        //student = view.findViewById(R.id.register_btn_student);
+        //lecture = view.findViewById(R.id.register_btn_lecture);
 
-        student.setTag(R.drawable.sh_lightblue);
-        lecture.setTag(R.drawable.sh_lightblue);
+        //student.setTag(R.drawable.sh_lightblue);
+        //lecture.setTag(R.drawable.sh_lightblue);
 
         status = "";
-        student.setOnClickListener(this);
-        lecture.setOnClickListener(this);
+        //student.setOnClickListener(this);
+        //lecture.setOnClickListener(this);
         registerLoginPage.setOnClickListener(this);
         registerButton.setOnClickListener(this);
 
@@ -75,7 +75,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
             case R.id.register_btn_create_account:
                 createNewAccount();
                 break;
-            case R.id.register_btn_student:
+            /*case R.id.register_btn_student:
                 if (student.getTag().equals(R.drawable.sh_lightblue)) {
                     student.setBackgroundResource(R.drawable.sh_darkerblue);
                     lecture.setBackgroundResource(R.drawable.sh_lightblue);
@@ -90,7 +90,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
                     lecture.setTag(R.drawable.sh_lightblue);
                     status = "Lecture";
                 }
-                break;
+                break;*/
         }
     }
 
@@ -136,7 +136,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
                                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("email", inputEmail);
-                                user.put("status", status);
+                                user.put("status", "Lecture");
                                 user.put("firsttime", "1");
                                 user.put("username", "");
                                 user.put("name", "");

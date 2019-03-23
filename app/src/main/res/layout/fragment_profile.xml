@@ -6,14 +6,6 @@
     android:background="@color/yellowPrimary"
     tools:context=".FragmentProfile">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_radio_button_checked_black_24dp" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

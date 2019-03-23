@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|center"
+    android:background="@color/yellowPrimary">
+
+    <LinearLayout
+        android:paddingTop="40dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="30dp"
+        android:layout_width="match_parent"
+        android:background="@color/yellowDarkPrimary"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/book_cover"
+            android:layout_width="100dp"
+            android:layout_height="130dp"
+            android:background="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/futura_bold"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/book_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="Ini Harusnya berisi isi"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="Author"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/futura_bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/book_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="Ini Harusnya berisi isi"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Genre"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/futura_bold"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/book_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="Ini Harusnya berisi isi"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="View"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/futura_bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/book_view"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:text="Ini Harusnya berisi isi"/>
+
+            </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Description"/>
+    <TextView
+        android:id="@+id/book_desc"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="COBACOBACOBACOBACOABCOABCOABCOALASJF:LASKJF:LKSAHKL::LKSJLK :Jlk;FJLK:SAJF lkjasL;FKJ;LASKDJF LKJGL;SDKJFKLADSJ"/>
+</LinearLayout>
