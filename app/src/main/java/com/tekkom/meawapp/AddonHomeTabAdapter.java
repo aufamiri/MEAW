@@ -9,22 +9,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class TabPagerAdapter extends FragmentStatePagerAdapter {
+public class AddonHomeTabAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> titleList = new ArrayList<>();
 
-
-    String[] tabList = new String[]{"1", "2"};
-    int tabCount = 2;
-
-    public TabPagerAdapter(@NonNull FragmentManager fm) {
+    public AddonHomeTabAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
+        //return fragmentList.get(position);
         return fragmentList.get(position);
     }
 
@@ -39,7 +36,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
         return titleList.get(position);
     }
 
-    public void addFragment(Fragment fragment, String title) {
+    public void addTab(Fragment fragment, String title) {
         fragmentList.add(fragment);
         titleList.add(title);
     }

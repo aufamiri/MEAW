@@ -27,7 +27,7 @@ public class ContainerFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof ActivityUser) {
+        if (context instanceof ActivityHome) {
             mToolbarSetupCallback = (TabLayoutSetupCallback) context;
         } else {
             throw new ClassCastException(context.toString() + " must implement TabLayoutSetupCallback");

@@ -46,7 +46,7 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".ActivityUser"
+            android:name=".ActivityHome"
             android:label="@string/title_activity_lecture_main"
             android:theme="@style/AppTheme">
 

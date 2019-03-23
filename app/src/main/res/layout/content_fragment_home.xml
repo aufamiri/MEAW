@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:paddingBottom="110dp"
+    android:paddingBottom="20dp"
     app:behavior_overlapTop="64dp"
     tools:context=".FragmentHome"
     tools:showIn="@layout/fragment_home">
@@ -17,9 +17,9 @@
         android:clipToPadding="false"
         android:scrollbars="vertical" />
 
-    <View
-        android:layout_below="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
+    <!--<View-->
+    <!--android:layout_below="@+id/recycler_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="100dp" />-->
 
 </RelativeLayout>
