@@ -158,7 +158,7 @@ public class FirstLoginActivity extends AppCompatActivity implements View.OnClic
                                     Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
 
                                     if (documentSnapshot.getString("status").equals("Lecture")) {
-                                        startActivity(new Intent(FirstLoginActivity.this, ActivityUser.class));
+                                        startActivity(new Intent(FirstLoginActivity.this, ActivityHome.class));
                                     } else if (documentSnapshot.getString("status").equals("Student")) {
                                         startActivity(new Intent(FirstLoginActivity.this, StudentActivity.class));
                                     }

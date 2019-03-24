@@ -140,7 +140,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                                                         if (documentSnapshot.getString("firsttime").equals("1")) {
                                                             startActivity(new Intent(getActivity(), FirstLoginActivity.class));
                                                         } else {
-                                                            startActivity(new Intent(getActivity(), ActivityUser.class));
+                                                            startActivity(new Intent(getActivity(), ActivityHome.class));
                                                         }
                                                     }
                                                 }
