@@ -13,7 +13,12 @@
     <color name="transparentGrey">#642b2a2a</color>
 
     <color name="backgroundLight">#ECCACA</color>
-    <color name="backgroundDark">#1F0606</color>
+    <color name="backgroundDark">#292929</color>
+
+    <color name="backgroundLight2">#FA90A4</color>
+    <color name="backgroundLight3">#906AE6</color>
+    <color name="backgroundLight4">#71F1FF</color>
+    <color name="backgroundLight5">#D83A3A</color>
 
 
     <color name="darkBlue">#071436</color>

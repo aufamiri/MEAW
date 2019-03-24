@@ -111,6 +111,7 @@ public class ActivityHome extends AppCompatActivity {
         tabAdapter = new AddonHomeTabAdapter(getSupportFragmentManager());
         tabAdapter.addTab(new FragmentHome(), "HOME");
         tabAdapter.addTab(new FragmentUpload(), "UPLOAD");
+        tabAdapter.addTab(new FragmentMore(), "ACCOUNT");
 
         viewPager.setAdapter(tabAdapter);
     }

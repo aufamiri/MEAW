@@ -77,7 +77,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/create_new_account"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -100,7 +100,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/forget_password"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
