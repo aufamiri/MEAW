@@ -15,17 +15,20 @@ public class ActivityGettingStarted extends AppIntro2 {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addSlide(AppIntro2Fragment.newInstance("Slide 1", "Desk Slide 1", R.drawable.album1, R.color.colorAccent));
-        addSlide(AppIntro2Fragment.newInstance("Slide 2", "Desk Slide 2", R.drawable.album2, R.color.grey));
-        addSlide(AppIntro2Fragment.newInstance("Slide 3", "Desk Slide 3", R.drawable.album3, R.color.black));
-        addSlide(AppIntro2Fragment.newInstance("Slide 4", "Desk Slide 4", R.drawable.album4, R.color.yellowPrimary));
+
+        String desk1 = "Dapatkan akses gratis ke seluruh buku populer tanpa harus langganan!";
+        String desk2 = "Beritahu dunia tentang karya-karyamu!";
+        String desk3 = "Nikmati seluruh fitur yang kami berikan :)";
+
+        addSlide(AppIntro2Fragment.newInstance("IT'S FREE!", desk1, R.drawable.money, R.color.backgroundLight2));
+        addSlide(AppIntro2Fragment.newInstance("REALIZE YOUR DREAM!", desk2, R.drawable.dream, R.color.backgroundLight3));
+        addSlide(AppIntro2Fragment.newInstance("ENJOY!", desk3, R.drawable.smile, R.color.backgroundLight4));
 
         showSkipButton(false);
         showStatusBar(false);
         setFadeAnimation();
-        askForPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
-        askForPermissions(new String[]{Manifest.permission.CAMERA}, 3);
-        askForPermissions(new String[]{Manifest.permission.USE_FINGERPRINT}, 1);
+        askForPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 3);
+
     }
 
     @Override

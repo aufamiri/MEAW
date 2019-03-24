@@ -11,6 +11,7 @@
     android:layout_alignParentBottom="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentEnd="true"
+    android:background="@drawable/bg_fragment_upload_book_content"
     android:fillViewport="true">
 
     <LinearLayout
